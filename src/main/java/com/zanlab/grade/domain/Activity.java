@@ -15,14 +15,22 @@ public class Activity implements Serializable {
     private Date begintime;
     private Date endtime;
     private Date createtime;
-
+    private Date updatetime;
     private User user;
     private List<Player> players;
     private List<Rule> rules;
     private List<Grade> grades;
-
+    private List<Judge>judges;
     public Integer getUserid() {
         return userid;
+    }
+
+    public Date getUpdatetime() {
+        return updatetime;
+    }
+
+    public void setUpdatetime(Date updatetime) {
+        this.updatetime = updatetime;
     }
 
     public void setUserid(Integer userid) {
@@ -133,6 +141,14 @@ public class Activity implements Serializable {
         this.createtime = createtime;
     }
 
+    public List<Judge> getJudges() {
+        return judges;
+    }
+
+    public void setJudges(List<Judge> judges) {
+        this.judges = judges;
+    }
+
     @Override
     public String toString() {
         return "Activity{" +
@@ -146,10 +162,12 @@ public class Activity implements Serializable {
                 ", begintime=" + begintime +
                 ", endtime=" + endtime +
                 ", createtime=" + createtime +
+                ", updatetime=" + updatetime +
                 ", user=" + user +
                 ", players=" + players +
                 ", rules=" + rules +
                 ", grades=" + grades +
+                ", judges=" + judges +
                 '}';
     }
 }

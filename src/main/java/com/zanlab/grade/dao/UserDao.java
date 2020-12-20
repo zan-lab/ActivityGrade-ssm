@@ -9,4 +9,6 @@ import java.util.List;
 public interface UserDao {
     @Select("select * from user")
     public List<User> findAll();
+    @Select("select * from user where id = #{id}")
+    public User findById(Integer id);
 }

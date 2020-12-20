@@ -7,10 +7,9 @@ public class Player implements Serializable {
     private Integer id;
     private Integer activityid;
     private String name;
-    private Integer projectname;
+    private String projectname;
     private Double score;
     private Double fairscore;
-    private Integer status;
 
     private List<Grade> grades;
     public Integer getId() {
@@ -29,11 +28,11 @@ public class Player implements Serializable {
         this.activityid = activityid;
     }
 
-    public Integer getProjectname() {
+    public String getProjectname() {
         return projectname;
     }
 
-    public void setProjectname(Integer projectname) {
+    public void setProjectname(String projectname) {
         this.projectname = projectname;
     }
 
@@ -51,14 +50,6 @@ public class Player implements Serializable {
 
     public void setFairscore(Double fairscore) {
         this.fairscore = fairscore;
-    }
-
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
     }
 
     public String getName() {
@@ -88,7 +79,6 @@ public class Player implements Serializable {
                 ", projectname=" + projectname +
                 ", score=" + score +
                 ", fairscore=" + fairscore +
-                ", status=" + status +
                 ", grades=" + grades +
                 '}';
     }

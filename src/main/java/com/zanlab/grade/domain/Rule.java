@@ -8,7 +8,6 @@ public class Rule implements Serializable {
     private Integer activityid;
     private Double fullscore;
     private Double limitScore;
-    private Integer status;
 
 
     public Integer getId() {
@@ -43,13 +42,6 @@ public class Rule implements Serializable {
         this.limitScore = limitScore;
     }
 
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
-        this.status = status;
-    }
 
     public Integer getActivityid() {
         return activityid;
@@ -68,7 +60,6 @@ public class Rule implements Serializable {
                 ", activityid=" + activityid +
                 ", fullscore=" + fullscore +
                 ", limitScore=" + limitScore +
-                ", status=" + status +
                 '}';
     }
 }
