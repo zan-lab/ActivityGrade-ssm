@@ -16,6 +16,8 @@ public class AnalyseController {
     ActivityService activityService;
     @Autowired
     AnalyseService analyseService;
+
+    //获取活动的选手排名
     @RequestMapping(value = "/order",method = RequestMethod.GET)
     public  String playerOrder(Integer activityid){
         if(activityService.hasActivity(activityid)){
@@ -24,6 +26,7 @@ public class AnalyseController {
         else return JsonResult(-1,"活动不存在");
     }
 
+    //获取截尾后的选手排名
     @RequestMapping(value = "/fairorder",method = RequestMethod.GET)
     public String playerFairorder(Integer activityid){
         if(activityService.hasActivity(activityid)){

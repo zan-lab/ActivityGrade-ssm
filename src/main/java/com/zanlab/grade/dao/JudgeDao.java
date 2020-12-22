@@ -18,4 +18,10 @@ public interface JudgeDao {
     @Select("select * from judge where id=#{activityid}")
     @ResultMap("userMap")
     public List<Judge> findListByActivityid(Integer activityid);
+
+    List<Judge> findListByUseridOrder(Integer userid);
+
+    public int save(Judge judge);
+
+    public Judge findById(Integer judgeid);
 }

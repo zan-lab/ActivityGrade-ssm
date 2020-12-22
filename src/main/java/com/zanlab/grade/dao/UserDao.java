@@ -11,4 +11,10 @@ public interface UserDao {
     public List<User> findAll();
     @Select("select * from user where id = #{id}")
     public User findById(Integer id);
+
+    public int save(User user);
+
+    public User findByOpenid(String openid);
+
+    public int update(User user);
 }

@@ -15,7 +15,7 @@ public class Player implements Serializable {
     public Integer getId() {
         return id;
     }
-
+    
     public void setId(Integer id) {
         this.id = id;
     }
@@ -76,7 +76,7 @@ public class Player implements Serializable {
                 "id=" + id +
                 ", activityid=" + activityid +
                 ", name='" + name + '\'' +
-                ", projectname=" + projectname +
+                ", projectname='" + projectname + '\'' +
                 ", score=" + score +
                 ", fairscore=" + fairscore +
                 ", grades=" + grades +

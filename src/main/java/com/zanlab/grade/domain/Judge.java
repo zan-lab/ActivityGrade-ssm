@@ -9,6 +9,15 @@ public class Judge implements Serializable {
     private Integer userid;
 
     private User user;
+    private Activity activity;
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
+    }
 
     public Integer getId() {
         return id;
@@ -61,6 +70,7 @@ public class Judge implements Serializable {
                 ", activityid=" + activityid +
                 ", userid=" + userid +
                 ", user=" + user +
+                ", activity=" + activity +
                 '}';
     }
 }

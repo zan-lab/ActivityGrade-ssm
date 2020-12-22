@@ -2,12 +2,11 @@ package com.zanlab.grade.service;
 
 
 import com.zanlab.grade.domain.Player;
-import com.zanlab.grade.domain.Rule;
 
 import java.util.List;
 
 public interface PlayerService {
-    public List<Rule> getListByActivityid(Integer activityid);
+    public List<Player> getListByActivityid(Integer activityid);
 
     public Boolean createPlayer(Player player);
 
@@ -16,4 +15,8 @@ public interface PlayerService {
     public Boolean deletePlayer(Integer id);
 
     public Boolean hasPlayer(Integer id);
+
+    public void updateAverage(Integer id);
+
+
 }

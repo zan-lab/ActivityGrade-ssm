@@ -22,6 +22,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    //用户微信授权登录，根据code获取用户openid
     @RequestMapping(value = "/login",method = {RequestMethod.POST})
     public String login(String code) throws IOException{
         String appid="wx69dd67d279607eec";
@@ -37,6 +38,8 @@ public class UserController {
             return JsonResult(RetObject("openid",res.getOpenid()));
         }
     }
+
+    //用户注册
     @RequestMapping(value = "/",method = RequestMethod.POST)
     public String register(User user){
         if(user.getOpenid()==null){
@@ -59,6 +62,7 @@ public class UserController {
         }
     }
 
+    //用户信息更新
     @RequestMapping(value = "/",method = RequestMethod.PUT)
     public String update(User user){
         if(user.getOpenid()==null){
@@ -81,6 +85,7 @@ public class UserController {
         }
     }
 
+    //用户信息获取
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public String getUserById(Integer id){
      if(userService.isRegister(id)){
@@ -89,6 +94,7 @@ public class UserController {
      else return  JsonResult(-3,"未查到此用户");
     }
 
+    //用户信息获取（根据openid）
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public String getUserByOpenid(String openid){
         if(userService.hasOpenid(openid)){
@@ -97,6 +103,7 @@ public class UserController {
         else return  JsonResult(-3,"未查到此用户");
     }
 
+    //用户常用评委名修改
     @RequestMapping(value = "/judgename",method = RequestMethod.PUT)
     public String updateJudgename(Integer id,String judgename){
         if(userService.isRegister(id)){

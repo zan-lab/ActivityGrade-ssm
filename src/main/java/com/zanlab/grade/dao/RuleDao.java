@@ -11,4 +11,11 @@ public interface RuleDao {
     @Select("select * from rule where activityid=#{activityId}")
     public List<Rule>findListByActivityid(Integer activityId);
 
+    public int save(Rule rule);
+
+    public Rule findById(Integer id);
+
+    public int update(Rule r);
+
+    public int delete(Integer id);
 }
