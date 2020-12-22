@@ -12,7 +12,7 @@ public interface ActivityDao {
     @Select("select *,id as activityid,userid as uid  from activity")
     @Results(id = "activityMap",value = {
             @Result(property = "judges",column = "activityid",many=@Many(select = "com.zanlab.grade.dao.JudgeDao.findListByActivityid",fetchType = FetchType.LAZY)),
-            @Result(property = "user",column = "uid",one=@One(select = "com.zanlab.grade.dao.UserDao.findById",fetchType = FetchType.LAZY)),
+            @Result(property = "user",column = "uid",one=@One(select = "com.zanlab.grade.dao.UserDao.findById",fetchType = FetchType.EAGER)),
             @Result(property = "players",column = "activityid",many = @Many(select = "com.zanlab.grade.dao.PlayerDao.findListByActivityid",fetchType = FetchType.LAZY)),
             @Result(property = "grades",column = "activityid",many = @Many(select = "com.zanlab.grade.dao.GradeDao.findListByActivityid",fetchType = FetchType.LAZY)),
             @Result(property = "rules",column = "activityid",many = @Many(select = "com.zanlab.grade.dao.RuleDao.findListByActivityid",fetchType = FetchType.LAZY)),
@@ -32,10 +32,10 @@ public interface ActivityDao {
     public int save(Activity activity);
 
     @Update("update activity set name=#{name},sponsor=#{sponsor},brief=#{brief},status=#{status}," +
-            "invitationcode=#{invitationcode},userid=#{userid},begintime=#{begintime},endtime={endtime} where id= id" )
+            "invitationcode=#{invitationcode},userid=#{userid},begintime=#{begintime},endtime={endtime} where id= #{id}" )
     public int update(Activity act);
 
-    @Select("select * from activity where userid=#{userid}")
+    @Select("select *,id as activityid,userid as uid  from activity where userid=#{userid}")
     @ResultMap("activityMap")
     List<Activity> findActivityByUserid(Integer userid);
 }

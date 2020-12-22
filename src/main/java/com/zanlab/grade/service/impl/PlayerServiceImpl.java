@@ -50,7 +50,7 @@ public class PlayerServiceImpl implements PlayerService {
 
     /**
      * 计算用户的平均值，写入字段
-     * @param id
+     * @param id 用户id
      */
     @Override
     public void updateAverage(Integer id) {

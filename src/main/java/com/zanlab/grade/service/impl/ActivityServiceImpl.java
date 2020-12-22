@@ -84,7 +84,7 @@ public class ActivityServiceImpl implements ActivityService {
     public List<Activity> getUserActivity(Integer userid) {
         List<Activity> res=new ArrayList<Activity>();
         //先根据用户id找评委
-        List<Judge> judgeList=judgeDao.findListByUseridOrder(userid);
+        List<Judge> judgeList=judgeDao.findListByUserid(userid);
         //根据评委找到activity
         for(Judge judge : judgeList){
             res.add(judge.getActivity());
