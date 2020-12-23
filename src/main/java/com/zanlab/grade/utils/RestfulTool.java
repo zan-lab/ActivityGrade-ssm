@@ -10,12 +10,20 @@ import java.util.Map;
 
 public class RestfulTool {
     /**
-     *  只有data的模式，默认成功
+     *  只有data的模式，默认成功,检查是否数据对了
      * @param data 单个模型或者list
      * @return 返回string修饰过的json数据
      */
     public static String JsonResult(Object data){
-        return JsonResult(data,200,"");
+        if(data==null){
+            return JsonResult(-3,"数据未找到");
+        }
+        if(data instanceof List){
+            if(((List)data).size()==0){
+                return JsonResult(-3,"数据未找到");
+            }
+        }
+         return JsonResult(data,200,"");
     }
 
     /**
@@ -34,14 +42,6 @@ public class RestfulTool {
      * @return
      */
     public static String JsonResult(Object data,Integer code,String msg){
-        if(data==null){
-            return JsonResult(-3,"数据未找到");
-        }
-        else if(data instanceof List){
-            if(((List) data).size()==0){
-                return JsonResult(-3,"数据未找到");
-            }
-        }
         Map<String, Object> map = new HashMap<>();
         map.put("code",code);
         map.put("msg",msg);

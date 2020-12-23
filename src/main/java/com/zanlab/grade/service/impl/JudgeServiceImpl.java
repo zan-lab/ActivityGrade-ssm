@@ -5,7 +5,6 @@ import com.zanlab.grade.dao.JudgeDao;
 import com.zanlab.grade.domain.Grade;
 import com.zanlab.grade.domain.Judge;
 import com.zanlab.grade.domain.Player;
-import com.zanlab.grade.service.ActivityService;
 import com.zanlab.grade.service.JudgeService;
 import com.zanlab.grade.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +23,6 @@ public class JudgeServiceImpl implements JudgeService {
     private GradeDao gradeDao;
     @Autowired
     private PlayerService playerService;
-    @Autowired
-    private ActivityService activityService;
 
     @Override
     public List<Judge> getJudgeListByActivityid(Integer activityid) {
