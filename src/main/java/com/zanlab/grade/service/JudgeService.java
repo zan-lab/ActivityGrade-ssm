@@ -9,15 +9,19 @@ import java.util.List;
 public interface JudgeService {
     List<Judge> getJudgeListByActivityid(Integer activityid);
 
-    public Boolean addJudge(Judge judge);
+    Boolean addJudge(Judge judge);
 
-    public Boolean judge(Grade grade);
+    Boolean judge(Grade grade);
 
-    public Boolean hasGrade(Integer id);
+    Boolean hasGrade(Integer id);
 
-    public Boolean updateGrade(Grade grade);
+    Boolean updateGrade(Grade grade);
 
     List<Player> getUnjudgedPlayerList(Integer judgeid);
 
     List<Player> getJudgedPlayerList(Integer judgeid);
+
+    Judge getByUserandActivity(Integer userid, Integer activityid);
+
+    Boolean hasJudge(Integer userid, Integer activityid);
 }

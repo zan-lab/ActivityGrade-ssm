@@ -12,9 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.zanlab.grade.utils.RestfulTool.JsonResult;
+import static com.zanlab.grade.utils.RestfulTool.RetObject;
 
 @RestController
-@RequestMapping(value = "/Judge",produces = "application/json;charset=UTF-8")
+@RequestMapping(value = "/judge",produces = "application/json;charset=UTF-8")
 public class JudgeController {
     @Autowired
     private JudgeService judgeService;
@@ -42,16 +43,36 @@ public class JudgeController {
         if(judge.getUserid()==null)return JsonResult(-2,"用户id缺少");
         else if(judge.getActivityid()==null)return JsonResult(-2,"活动id缺少");
         else{
-            if(userService.isRegister(judge.getUserid())){
-             if(activityService.hasActivity(judge.getActivityid())){
-                if(judgeService.addJudge(judge))return JsonResult();
-                else return JsonResult(-5,"添加失败");
-             }
-             else return JsonResult(-1,"活动不存在");
+            if(judgeService.hasJudge(judge.getUserid(),judge.getActivityid())){
+                return JsonResult(-4,"用户该活动评委已存在");
             }
-            else return JsonResult(-1,"用户不存在");
+            else{
+                if(userService.isRegister(judge.getUserid())){
+                    if(activityService.hasActivity(judge.getActivityid())){
+                        if(judgeService.addJudge(judge))return JsonResult();
+                        else return JsonResult(-5,"添加失败");
+                    }
+                    else return JsonResult(-1,"活动不存在");
+                }
+                else return JsonResult(-1,"用户不存在");
+            }
         }
     }
+
+    //查看评委id
+    @RequestMapping(value = "/id",method = RequestMethod.GET)
+    public String getJudgeId(Judge judgePara){
+        if(userService.isRegister(judgePara.getUserid())){
+            if(activityService.hasActivity(judgePara.getActivityid())){
+                Judge judge=judgeService.getByUserandActivity(judgePara.getUserid(),judgePara.getActivityid());
+                if(judge==null)return JsonResult(RetObject("judgeid",null));
+                else return JsonResult(RetObject("judgeid",judge.getId()));
+            }
+            else return JsonResult(-1,"活动不存在");
+        }
+        else return JsonResult(-1,"用户不存在");
+    }
+
 
     //评委评分
     @RequestMapping(value = "/judge",method = RequestMethod.POST)

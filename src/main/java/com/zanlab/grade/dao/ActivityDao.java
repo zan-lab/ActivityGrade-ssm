@@ -16,22 +16,26 @@ public interface ActivityDao {
 //            @Result(property = "grades",column = "activityid",many = @Many(select = "com.zanlab.grade.dao.GradeDao.findListByActivityid",fetchType = FetchType.LAZY)),
 //            @Result(property = "rules",column = "activityid",many = @Many(select = "com.zanlab.grade.dao.RuleDao.findListByActivityid",fetchType = FetchType.LAZY)),
     })
-    public List<Activity>findAll();
+    List<Activity>findAll();
 
     @Select("select * from activity where invitationcode=#{code}")
-    public Activity findByCode(String code);
+    Activity findByCode(String code);
 
     @Select("select *  from activity where id=#{id}")
-    public Activity findById(Integer id);
+    Activity findById(Integer id);
 
-    @Insert("insert into activity (name,sponsor,brief,status,invitationcode,userid,begintime,endtime) " +
-            "values(#{name},#{sponsor},#{brief},#{status},#{invitationcode},#{userid},#{begintime},#{endtime})")
-    public int save(Activity activity);
+    @Insert("insert into activity (name,sponsor,brief,status,invitationcode,userid,begintime) " +
+            "values(#{name},#{sponsor},#{brief},#{status},#{invitationcode},#{userid},#{begintime})")
+    int save(Activity activity);
 
     @Update("update activity set name=#{name},sponsor=#{sponsor},brief=#{brief},status=#{status}," +
-            "invitationcode=#{invitationcode},userid=#{userid},begintime=#{begintime},endtime={endtime} where id= #{id}" )
-    public int update(Activity act);
+            "invitationcode=#{invitationcode},userid=#{userid},begintime=#{begintime} where id= #{id}" )
+    int update(Activity act);
 
     @Select("select *  from activity where userid=#{userid}")
     List<Activity> findActivityByUserid(Integer userid);
+
+    @Update("update activity set name=#{name},sponsor=#{sponsor},brief=#{brief},status=#{status}," +
+            "invitationcode=#{invitationcode},userid=#{userid},begintime=#{begintime},endtime=#{endtime} where id= #{id}" )
+    int updateWithEndtime(Activity act);
 }

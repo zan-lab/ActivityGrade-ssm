@@ -23,7 +23,7 @@ public class RestfulTool {
                 return JsonResult(-3,"数据未找到");
             }
         }
-         return JsonResult(data,200,"");
+         return JsonResult(data,0,"");
     }
 
     /**
@@ -31,7 +31,7 @@ public class RestfulTool {
      * @return
      */
     public static String JsonResult(){
-        return JsonResult(null,200,"");
+        return JsonResult(null,0,"");
     }
 
     /**

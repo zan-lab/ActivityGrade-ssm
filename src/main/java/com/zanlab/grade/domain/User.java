@@ -41,12 +41,12 @@ public class User implements Serializable {
         this.judgename = judgename;
     }
 
-    public String getAvataurl() {
+    public String getAvatarurl() {
         return avatarurl;
     }
 
-    public void setAvataurl(String avataurl) {
-        this.avatarurl = avataurl;
+    public void setAvatarurl(String avatarurl) {
+        this.avatarurl = avatarurl;
     }
 
     @Override

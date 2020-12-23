@@ -1,5 +1,7 @@
 package com.zanlab.grade.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 public class Judge implements Serializable {
@@ -9,6 +11,7 @@ public class Judge implements Serializable {
     private Integer userid;
 
     //private User user;
+    @JsonIgnore
     private Activity activity;
 
     public Activity getActivity() {

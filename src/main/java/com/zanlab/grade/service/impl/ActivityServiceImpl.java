@@ -24,7 +24,6 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public Activity createActivity(Activity activity) {
-        activity.setEndtime(new Date(Long.MAX_VALUE));
         //生成code，并且保证code不重复
         String code=getRandomString(6);
         while(activityDao.findByCode(code)!=null){
@@ -63,16 +62,13 @@ public class ActivityServiceImpl implements ActivityService {
         act.setEndtime(new Date());
         //设置状态码为0，表示已结束
         act.setStatus(0);
-        return activityDao.update(act)==1;
+        return activityDao.updateWithEndtime(act)==1;
     }
 
     @Override
     public Boolean isEnd(Integer id) {
         Activity act=activityDao.findById(id);
-        if(act.getStatus()==1)return true;
-        else if(act.getStatus()==0)return false;
-        //其他情况暂且认为没有值，没有值代表没有被手动停止，为false
-        else return false;
+        return act.getStatus() == 0;
     }
 
     @Override
@@ -82,7 +78,7 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public List<Activity> getUserActivity(Integer userid) {
-        List<Activity> res=new ArrayList<Activity>();
+        List<Activity> res= new ArrayList<>();
         //先根据用户id找评委
         List<Judge> judgeList=judgeDao.findListByUserid(userid);
         //根据评委找到activity

@@ -7,7 +7,7 @@ public class Rule implements Serializable {
     private String name;
     private Integer activityid;
     private Double fullscore;
-    private Double limitScore;
+    private Double limitscore;
 
 
     public Integer getId() {
@@ -34,12 +34,12 @@ public class Rule implements Serializable {
         this.fullscore = fullscore;
     }
 
-    public Double getLimitScore() {
-        return limitScore;
+    public Double getLimitscore() {
+        return limitscore;
     }
 
-    public void setLimitScore(Double limitScore) {
-        this.limitScore = limitScore;
+    public void setLimitscore(Double limitscore) {
+        this.limitscore = limitscore;
     }
 
 
@@ -59,7 +59,7 @@ public class Rule implements Serializable {
                 ", name='" + name + '\'' +
                 ", activityid=" + activityid +
                 ", fullscore=" + fullscore +
-                ", limitScore=" + limitScore +
+                ", limitScore=" + limitscore +
                 '}';
     }
 }

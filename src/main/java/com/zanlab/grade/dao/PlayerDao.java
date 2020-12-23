@@ -27,7 +27,7 @@ public interface PlayerDao {
     @ResultMap("playerMap")
     Player findById(Integer id);
 
-    @Update("update activity set activity=#{activity},name=#{name},projectname=#{projectname} where id=#{id}")
+    @Update("update player set activityid=#{activityid},name=#{name},projectname=#{projectname} where id=#{id}")
     int update(Player p);
 
     @Delete("delete from player where id=#{id}")

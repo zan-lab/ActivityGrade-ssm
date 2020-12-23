@@ -46,7 +46,7 @@ public class UserController {
         if(user.getOpenid()==null){
             return JsonResult(-2,"缺少openid");
         }
-        else if(user.getAvataurl()==null){
+        else if(user.getAvatarurl()==null){
             return JsonResult(-2,"缺少头像地址");
         }
         else if(user.getNickname()==null){
@@ -66,10 +66,13 @@ public class UserController {
     //用户信息更新
     @RequestMapping(value = "/",method = RequestMethod.PUT)
     public String update(User user){
-        if(user.getOpenid()==null){
+        if(user.getId()==null){
+            return JsonResult(-2,"缺少用户Id");
+        }
+        else if(user.getOpenid()==null){
             return JsonResult(-2,"缺少openid");
         }
-        else if(user.getAvataurl()==null){
+        else if(user.getAvatarurl()==null){
             return JsonResult(-2,"缺少头像地址");
         }
         else if(user.getNickname()==null){
@@ -96,7 +99,7 @@ public class UserController {
     }
 
     //用户信息获取（根据openid）
-    @RequestMapping(value = "/openid}",method = RequestMethod.GET)
+    @RequestMapping(value = "/",method = RequestMethod.GET)
     public String getUserByOpenid(String openid){
         if(userService.hasOpenid(openid)){
             return JsonResult(userService.getUserInfo(openid));

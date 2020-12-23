@@ -66,7 +66,7 @@ public class ActivityController {
     @RequestMapping(value = "/rule",method = RequestMethod.POST)
     public String createRule(Rule rule){
        if(rule.getActivityid()==null)return JsonResult(-2,"activityid缺失");
-       else if(activityService.hasActivity(rule.getActivityid()))return JsonResult(-2,"activity不存在");
+       else if(!activityService.hasActivity(rule.getActivityid()))return JsonResult(-2,"activity不存在");
        else {
            if (ruleService.createRule(rule)) return JsonResult();
            else return JsonResult(-5, "创建失败");
@@ -78,7 +78,7 @@ public class ActivityController {
     public String updateRule(Rule rule){
         if(rule.getId()==null)return JsonResult(-2,"id缺失");
         else if(rule.getActivityid()==null)return JsonResult(-2,"activityid缺失");
-        else if(activityService.hasActivity(rule.getActivityid()))return JsonResult(-2,"activity不存在");
+        else if(!activityService.hasActivity(rule.getActivityid()))return JsonResult(-2,"activity不存在");
         else {
             if (ruleService.updateRule(rule)) return JsonResult();
             else return JsonResult(-5, "修改失败");
@@ -98,7 +98,7 @@ public class ActivityController {
     //活动获取选手列表
     @RequestMapping(value = "/player",method = RequestMethod.GET)
     public String playerlist(Integer activityid){
-        if(activityService.hasActivity(activityid)){
+        if(!activityService.hasActivity(activityid)){
             return JsonResult(playerService.getListByActivityid(activityid));
         }
         else return JsonResult(-3,"活动不存在");
@@ -108,7 +108,7 @@ public class ActivityController {
     @RequestMapping(value = "/player",method = RequestMethod.POST)
     public String createPlayer(Player player){
         if(player.getActivityid()==null)return JsonResult(-2,"activityid缺失");
-        else if(activityService.hasActivity(player.getActivityid()))return JsonResult(-2,"activity不存在");
+        else if(!activityService.hasActivity(player.getActivityid()))return JsonResult(-2,"activity不存在");
         else {
             if (playerService.createPlayer(player)) return JsonResult();
             else return JsonResult(-5, "创建失败");
@@ -120,7 +120,7 @@ public class ActivityController {
     public String updatePlayer(Player player){
         if(player.getId()==null)return JsonResult(-2,"id缺失");
         else if(player.getActivityid()==null)return JsonResult(-2,"activityid缺失");
-        else if(activityService.hasActivity(player.getActivityid()))return JsonResult(-2,"activity不存在");
+        else if(!activityService.hasActivity(player.getActivityid()))return JsonResult(-2,"activity不存在");
         else {
             if (playerService.updatePlayer(player)) return JsonResult();
             else return JsonResult(-5, "修改失败");
@@ -160,8 +160,8 @@ public class ActivityController {
     //获取用户创建的活动列表
     @RequestMapping(value = "/useradmin",method = RequestMethod.GET)
     public String getUserAdminActivity(Integer userid){
-        if(userService.isRegister(userid)){
-            return JsonResult(userService.isRegister(userid));
+        if(!userService.isRegister(userid)){
+            return JsonResult(-1,"用户未找到");
         }
         else{
             return JsonResult(activityService.getUserAdminActivity(userid));
@@ -172,8 +172,8 @@ public class ActivityController {
     //获得用户参加的活动列表
     @RequestMapping(value = "/userhas",method = RequestMethod.GET)
     public String getUserActivity(Integer userid){
-        if(userService.isRegister(userid)){
-            return JsonResult(userService.isRegister(userid));
+        if(!userService.isRegister(userid)){
+            return JsonResult(-1,"用户未找到");
         }
         else{
             return JsonResult(activityService.getUserActivity(userid));

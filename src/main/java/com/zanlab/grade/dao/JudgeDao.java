@@ -19,15 +19,19 @@ public interface JudgeDao {
     @Results(id = "judgeMap",value = {
             @Result(property = "activity",column = "aid",one=@One(select = "com.zanlab.grade.dao.ActivityDao.findById",fetchType = FetchType.EAGER))
     })
-    public List<Judge> findListByActivityid(Integer activityid);
+    List<Judge> findListByActivityid(Integer activityid);
 
     @Select("select *,userid as uid,activityid as aid from judge where userid=#{userid} ")
-    public List<Judge> findListByUserid(Integer userid);
+    @ResultMap("judgeMap")
+    List<Judge> findListByUserid(Integer userid);
 
-    @Update("insert into judge (name,activityid,userid) values(#{name},#{activityid},#{userid}")
-    public int save(Judge judge);
+    @Update("insert into judge (name,activityid,userid) values(#{name},#{activityid},#{userid})")
+    int save(Judge judge);
 
     @Select("select *,userid as uid,activityid as aid from judge where id=#{id}")
     @ResultMap("judgeMap")
-    public Judge findById(Integer judgeid);
+    Judge findById(Integer judgeid);
+
+    @Select("select * from judge where userid=#{userid} and activityid=#{activity})")
+    Judge findByUserandActivity(Integer userid, Integer activityid);
 }

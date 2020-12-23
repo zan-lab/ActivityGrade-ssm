@@ -105,4 +105,16 @@ public class JudgeServiceImpl implements JudgeService {
     public List<Player> getJudgedPlayerList(Integer judgeid) {
         return gradeDao.getListByJudgeid(judgeid);
     }
+
+    //通过用户id和活动id查找是否存在评委了
+    @Override
+    public Judge getByUserandActivity(Integer userid, Integer activityid) {
+        return judgeDao.findByUserandActivity(userid,activityid);
+    }
+
+    //判断是否存在评委了
+    @Override
+    public Boolean hasJudge(Integer userid, Integer activityid) {
+        return getByUserandActivity(userid,activityid)!=null;
+    }
 }

@@ -14,13 +14,13 @@ public interface RuleDao {
     @Select("select * from rule where activityid=#{activityId}")
     public List<Rule>findListByActivityid(Integer activityId);
 
-    @Insert("insert into rule (name,activityid,fullscore,limitscore) values (#{name},#{activityid},#{fullscore},#{limitscore}")
+    @Insert("insert into rule (name,activityid,fullscore,limitscore) values (#{name},#{activityid},#{fullscore},#{limitscore})")
     public int save(Rule rule);
 
     @Select("select * from rule where id=#{id}")
     public Rule findById(Integer id);
 
-    @Update("update rule set name=#{name},acitivityid=#{activityid},fullscore=#{fullscore},limitscore=#{limitscore} where id=#{id}")
+    @Update("update rule set name=#{name},activityid=#{activityid},fullscore=#{fullscore},limitscore=#{limitscore} where id=#{id}")
     public int update(Rule r);
 
     @Delete("delete from rule where id=#{id}")

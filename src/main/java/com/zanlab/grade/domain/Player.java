@@ -1,8 +1,11 @@
 package com.zanlab.grade.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 import java.util.List;
-
+@JsonIgnoreProperties(value = {"handler"})
 public class Player implements Serializable {
     private Integer id;
     private Integer activityid;
@@ -11,6 +14,7 @@ public class Player implements Serializable {
     private Double score;
     private Double fairscore;
 
+    @JsonIgnore
     private List<Grade> grades;
     public Integer getId() {
         return id;
