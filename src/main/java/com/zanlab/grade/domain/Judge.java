@@ -8,7 +8,7 @@ public class Judge implements Serializable {
     private Integer activityid;
     private Integer userid;
 
-    private User user;
+    //private User user;
     private Activity activity;
 
     public Activity getActivity() {
@@ -52,16 +52,6 @@ public class Judge implements Serializable {
     }
 
 
-
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     @Override
     public String toString() {
         return "Judge{" +
@@ -69,7 +59,6 @@ public class Judge implements Serializable {
                 ", name='" + name + '\'' +
                 ", activityid=" + activityid +
                 ", userid=" + userid +
-                ", user=" + user +
                 ", activity=" + activity +
                 '}';
     }

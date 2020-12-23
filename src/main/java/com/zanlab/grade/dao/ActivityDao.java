@@ -2,29 +2,26 @@ package com.zanlab.grade.dao;
 
 import com.zanlab.grade.domain.Activity;
 import org.apache.ibatis.annotations.*;
-import org.apache.ibatis.mapping.FetchType;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public interface ActivityDao {
-    @Select("select *,id as activityid,userid as uid  from activity")
+    @Select("select *  from activity")
     @Results(id = "activityMap",value = {
-            @Result(property = "judges",column = "activityid",many=@Many(select = "com.zanlab.grade.dao.JudgeDao.findListByActivityid",fetchType = FetchType.LAZY)),
-            @Result(property = "user",column = "uid",one=@One(select = "com.zanlab.grade.dao.UserDao.findById",fetchType = FetchType.EAGER)),
-            @Result(property = "players",column = "activityid",many = @Many(select = "com.zanlab.grade.dao.PlayerDao.findListByActivityid",fetchType = FetchType.LAZY)),
-            @Result(property = "grades",column = "activityid",many = @Many(select = "com.zanlab.grade.dao.GradeDao.findListByActivityid",fetchType = FetchType.LAZY)),
-            @Result(property = "rules",column = "activityid",many = @Many(select = "com.zanlab.grade.dao.RuleDao.findListByActivityid",fetchType = FetchType.LAZY)),
+//            @Result(property = "judges",column = "activityid",many=@Many(select = "com.zanlab.grade.dao.JudgeDao.findListByActivityid",fetchType = FetchType.LAZY)),
+//            @Result(property = "user",column = "uid",one=@One(select = "com.zanlab.grade.dao.UserDao.findById",fetchType = FetchType.EAGER)),
+//            @Result(property = "players",column = "activityid",many = @Many(select = "com.zanlab.grade.dao.PlayerDao.findListByActivityid",fetchType = FetchType.LAZY)),
+//            @Result(property = "grades",column = "activityid",many = @Many(select = "com.zanlab.grade.dao.GradeDao.findListByActivityid",fetchType = FetchType.LAZY)),
+//            @Result(property = "rules",column = "activityid",many = @Many(select = "com.zanlab.grade.dao.RuleDao.findListByActivityid",fetchType = FetchType.LAZY)),
     })
     public List<Activity>findAll();
 
-    @Select("select *,id as activityid,userid as uid  from activity where invitationcode=#{code}")
-    @ResultMap("activityMap")
+    @Select("select * from activity where invitationcode=#{code}")
     public Activity findByCode(String code);
 
-    @Select("select *,id as activityid,userid as uid  from activity where id=#{id}")
-    @ResultMap("activityMap")
+    @Select("select *  from activity where id=#{id}")
     public Activity findById(Integer id);
 
     @Insert("insert into activity (name,sponsor,brief,status,invitationcode,userid,begintime,endtime) " +
@@ -35,7 +32,6 @@ public interface ActivityDao {
             "invitationcode=#{invitationcode},userid=#{userid},begintime=#{begintime},endtime={endtime} where id= #{id}" )
     public int update(Activity act);
 
-    @Select("select *,id as activityid,userid as uid  from activity where userid=#{userid}")
-    @ResultMap("activityMap")
+    @Select("select *  from activity where userid=#{userid}")
     List<Activity> findActivityByUserid(Integer userid);
 }

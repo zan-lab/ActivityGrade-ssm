@@ -5,6 +5,7 @@ import com.zanlab.grade.domain.User;
 import com.zanlab.grade.domain.UserLoginRes;
 import com.zanlab.grade.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -86,8 +87,8 @@ public class UserController {
     }
 
     //用户信息获取
-    @RequestMapping(value = "/",method = RequestMethod.GET)
-    public String getUserById(Integer id){
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    public String getUserById(@PathVariable Integer id){
      if(userService.isRegister(id)){
          return JsonResult(userService.getUserInfo(id));
      }
@@ -95,7 +96,7 @@ public class UserController {
     }
 
     //用户信息获取（根据openid）
-    @RequestMapping(value = "/",method = RequestMethod.GET)
+    @RequestMapping(value = "/openid}",method = RequestMethod.GET)
     public String getUserByOpenid(String openid){
         if(userService.hasOpenid(openid)){
             return JsonResult(userService.getUserInfo(openid));

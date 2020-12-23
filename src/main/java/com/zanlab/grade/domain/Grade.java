@@ -19,7 +19,7 @@ public class Grade implements Serializable {
     private Double rule9;
     private Double rule10;
 
-    private Player player;
+    //private Player player;
     private Judge judge;
 
     public Integer getActivityid() {
@@ -30,13 +30,6 @@ public class Grade implements Serializable {
         this.activityid = activityid;
     }
 
-    public Player getPlayer() {
-        return player;
-    }
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
 
     public Judge getJudge() {
         return judge;
@@ -178,7 +171,6 @@ public class Grade implements Serializable {
                 ", rule8=" + rule8 +
                 ", rule9=" + rule9 +
                 ", rule10=" + rule10 +
-                ", player=" + player +
                 ", judge=" + judge +
                 '}';
     }

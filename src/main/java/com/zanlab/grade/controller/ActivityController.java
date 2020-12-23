@@ -5,6 +5,7 @@ import com.zanlab.grade.domain.Player;
 import com.zanlab.grade.domain.Rule;
 import com.zanlab.grade.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -85,8 +86,8 @@ public class ActivityController {
     }
 
     //活动删除规则
-    @RequestMapping(value = "/rule",method = RequestMethod.DELETE)
-    public String deleteRule(Integer id){
+    @RequestMapping(value = "/rule/{id}",method = RequestMethod.DELETE)
+    public String deleteRule(@PathVariable Integer id){
         if(ruleService.hasRule(id)){
             if(ruleService.deleteRule(id))return JsonResult();
             else return JsonResult(-5,"删除错误");
@@ -127,8 +128,8 @@ public class ActivityController {
     }
 
     //活动删除选手
-    @RequestMapping(value = "/player",method = RequestMethod.DELETE)
-    public String deletePlayer(Integer id){
+    @RequestMapping(value = "/player/{id}",method = RequestMethod.DELETE)
+    public String deletePlayer(@PathVariable Integer id){
         if(playerService.hasPlayer(id)){
             if(playerService.deletePlayer(id))return JsonResult();
             else return JsonResult(-5,"删除错误");
@@ -151,8 +152,8 @@ public class ActivityController {
     }
 
     //获取活动信息
-    @RequestMapping(value = "/",method = RequestMethod.GET)
-    public String getActivity(Integer id){
+    @RequestMapping(value = "/{id}",method = RequestMethod.GET)
+    public String getActivity(@PathVariable Integer id){
         return JsonResult(activityService.getActivity(id));
     }
 

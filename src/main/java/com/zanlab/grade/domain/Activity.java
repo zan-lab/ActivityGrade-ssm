@@ -2,7 +2,6 @@ package com.zanlab.grade.domain;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 public class Activity implements Serializable {
     private Integer id;
@@ -16,11 +15,11 @@ public class Activity implements Serializable {
     private Date endtime;
     private Date createtime;
     private Date updatetime;
-    private User user;
-    private List<Player> players;
-    private List<Rule> rules;
-    private List<Grade> grades;
-    private List<Judge>judges;
+    //private User user;
+    //private List<Player> players;
+    //private List<Rule> rules;
+    //private List<Grade> grades;
+    //private List<Judge>judges;
     public Integer getUserid() {
         return userid;
     }
@@ -35,38 +34,6 @@ public class Activity implements Serializable {
 
     public void setUserid(Integer userid) {
         this.userid = userid;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    public void setPlayers(List<Player> players) {
-        this.players = players;
-    }
-
-    public List<Rule> getRules() {
-        return rules;
-    }
-
-    public void setRules(List<Rule> rules) {
-        this.rules = rules;
-    }
-
-    public List<Grade> getGrades() {
-        return grades;
-    }
-
-    public void setGrades(List<Grade> grades) {
-        this.grades = grades;
     }
 
     public Integer getId() {
@@ -141,13 +108,6 @@ public class Activity implements Serializable {
         this.createtime = createtime;
     }
 
-    public List<Judge> getJudges() {
-        return judges;
-    }
-
-    public void setJudges(List<Judge> judges) {
-        this.judges = judges;
-    }
 
     @Override
     public String toString() {
@@ -163,11 +123,6 @@ public class Activity implements Serializable {
                 ", endtime=" + endtime +
                 ", createtime=" + createtime +
                 ", updatetime=" + updatetime +
-                ", user=" + user +
-                ", players=" + players +
-                ", rules=" + rules +
-                ", grades=" + grades +
-                ", judges=" + judges +
                 '}';
     }
 }
