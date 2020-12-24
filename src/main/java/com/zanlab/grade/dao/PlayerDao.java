@@ -30,6 +30,9 @@ public interface PlayerDao {
     @Update("update player set activityid=#{activityid},name=#{name},projectname=#{projectname} where id=#{id}")
     int update(Player p);
 
+    @Update("update player set activityid=#{activityid},name=#{name},projectname=#{projectname},score=#{score},fairscore=#{fairscore} where id=#{id}")
+    int updateWithScore(Player p);
+
     @Delete("delete from player where id=#{id}")
     int delete(Integer id);
 
@@ -40,4 +43,6 @@ public interface PlayerDao {
     @Select("select *,activityid as aid from player where activityid=#{activityid} order by fairscore desc")
     @ResultMap("playerMap")
     List<Player> findListByActivityidOrderByFariScore(Integer activityid);
+
+
 }

@@ -1,7 +1,6 @@
 package com.zanlab.grade.dao;
 
 import com.zanlab.grade.domain.Grade;
-import com.zanlab.grade.domain.Player;
 import org.apache.ibatis.annotations.*;
 import org.apache.ibatis.mapping.FetchType;
 import org.springframework.stereotype.Repository;
@@ -17,7 +16,7 @@ public interface GradeDao {
     })
     public List<Grade>findListByActivityid(Integer activityId);
 
-    @Select("select *judgeid as jid from grade where playerid=#{playerid}")
+    @Select("select *,judgeid as jid from grade where playerid=#{playerid}")
     @ResultMap("gradeMap")
     public List<Grade>findListByPlayerid(Integer playerid);
 
@@ -30,12 +29,15 @@ public interface GradeDao {
     @ResultMap("gradeMap")
     public Grade findById(Integer id);
 
-    @Update("update grade set playerid=#{playerid},judgeid=#{judgeid},activity=#{activity},playerscore=#{playerscore}," +
-            "rule1=#{rule1},rule1=#{rule1},rule1=#{rule2},rule1=#{rule2},rule1=#{rule3},rule1=#{rule3},rule4=#{rule4}" +
-            ",rule5=#{rule5},rule6=#{rule6},rule7=#{rule7},rule8=#{rule8},rule9=#{rule9},rule10=#{rule10} where id=#{id}")
+    @Update("update grade set playerid=#{playerid},judgeid=#{judgeid},activityid=#{activityid},playerscore=#{playerscore}," +
+            "rule1=#{rule1},rule2=#{rule2},rule3=#{rule3},rule4=#{rule4},rule5=#{rule5},rule6=#{rule6},rule7=#{rule7}" +
+            ",rule8=#{rule8},rule9=#{rule9},rule10=#{rule10} where id=#{id}")
     public void update(Grade grade);
 
     @Select("select *,judgeid as jid from grade where judgeid=#{judgeid}")
     @ResultMap("gradeMap")
-    public List<Player> getListByJudgeid(Integer judgeid);
+    public List<Grade> getListByJudgeid(Integer judgeid);
+
+    @Select("select * from grade where judgeid=#{judgeid} and playerid=#{playerid}")
+    Grade findByJidandPid(@Param("judgeid")Integer judgeid, @Param("playerid") Integer playerid);
 }

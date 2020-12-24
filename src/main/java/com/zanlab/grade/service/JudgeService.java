@@ -13,7 +13,7 @@ public interface JudgeService {
 
     Boolean judge(Grade grade);
 
-    Boolean hasGrade(Integer id);
+    Boolean hasGrade(Integer judgeid,Integer playerid);
 
     Boolean updateGrade(Grade grade);
 
@@ -23,5 +23,9 @@ public interface JudgeService {
 
     Judge getByUserandActivity(Integer userid, Integer activityid);
 
+    //判断用户在这个活动是否已经有评委注册
     Boolean hasJudge(Integer userid, Integer activityid);
+
+    //判断是否有这个judgeid
+    Boolean hasJudge(Integer judgeid);
 }

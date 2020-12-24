@@ -32,6 +32,6 @@ public interface JudgeDao {
     @ResultMap("judgeMap")
     Judge findById(Integer judgeid);
 
-    @Select("select * from judge where userid=#{userid} and activityid=#{activity})")
-    Judge findByUserandActivity(Integer userid, Integer activityid);
+    @Select("select * from judge where userid=#{userid} and activityid=#{activityid}")
+    Judge findByUserandActivity(@Param("userid")Integer userid, @Param("activityid")Integer activityid);
 }

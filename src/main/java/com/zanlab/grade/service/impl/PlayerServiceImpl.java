@@ -58,13 +58,16 @@ public class PlayerServiceImpl implements PlayerService {
         //先获取所有相关打分
         List<Grade> gradeList= gradeDao.findListByPlayerid(id);
         //更新选手的得分
-        List<Double> scorelist=new ArrayList<Double>();
+        //拿到成绩列表
+        List<Double> scorelist=new ArrayList();
         for(Grade grade:gradeList){
             scorelist.add(grade.getPlayerscore());
         }
+        //计算普通平均值
         player.setScore(calculateAverage(scorelist,0));
+        //计算截尾平均值
         player.setFairscore(calculateAverage(scorelist,1));
-        playerDao.update(player);
+        playerDao.updateWithScore(player);
     }
 
     /**
