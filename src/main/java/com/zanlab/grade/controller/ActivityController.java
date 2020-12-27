@@ -157,6 +157,11 @@ public class ActivityController {
         return JsonResult(activityService.getActivity(id));
     }
 
+    //根据邀请码获取活动信息
+    @RequestMapping(value = "/",method = RequestMethod.GET)
+    public String getActivityWithCode(String code){
+        return JsonResult(activityService.getActivityByCode(code));
+    }
     //获取用户创建的活动列表
     @RequestMapping(value = "/useradmin",method = RequestMethod.GET)
     public String getUserAdminActivity(Integer userid){

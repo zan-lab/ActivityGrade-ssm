@@ -87,4 +87,9 @@ public class ActivityServiceImpl implements ActivityService {
         }
         return res;
     }
+
+    @Override
+    public Activity getActivityByCode(String code) {
+        return activityDao.findByCode(code);
+    }
 }
