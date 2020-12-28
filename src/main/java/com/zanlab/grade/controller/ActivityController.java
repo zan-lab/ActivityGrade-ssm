@@ -98,7 +98,7 @@ public class ActivityController {
     //活动获取选手列表
     @RequestMapping(value = "/player",method = RequestMethod.GET)
     public String playerlist(Integer activityid){
-        if(!activityService.hasActivity(activityid)){
+        if(activityService.hasActivity(activityid)){
             return JsonResult(playerService.getListByActivityid(activityid));
         }
         else return JsonResult(-3,"活动不存在");
