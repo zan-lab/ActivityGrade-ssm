@@ -6,6 +6,7 @@ import com.zanlab.grade.dao.PlayerDao;
 import com.zanlab.grade.dao.RuleDao;
 import com.zanlab.grade.domain.*;
 import com.zanlab.grade.service.AnalyseService;
+import com.zanlab.grade.service.JudgeService;
 import com.zanlab.grade.utils.CommonUtils;
 import org.apache.poi.hssf.usermodel.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class AnalyseServiceImpl implements AnalyseService {
     private GradeDao gradeDao;
     @Autowired
     private RuleDao ruleDao;
+    @Autowired
+    private JudgeService judgeService;
     @Override
     public List<Player> getPlayerOrder(Integer activityid) {
         return playerDao.findListByActivityidOrderScore(activityid);
@@ -358,6 +361,20 @@ public class AnalyseServiceImpl implements AnalyseService {
         }
     }
 
+    //获取评委打分情况
+    @Override
+    public List<JudgeStatus> getJudgeStatus(Integer activityid) {
+        List<JudgeStatus>judgeStatusList=new ArrayList<>();
+        int playerNum=playerDao.findListByActivityid(activityid).size();
+        for(Judge judge : judgeDao.findListByActivityid(activityid)){
+            JudgeStatus judgeStatus=new JudgeStatus(judge);
+            int judgednum=judgeService.getJudgedPlayerList(judge.getId()).size();
+            judgeStatus.setHasjudged(judgednum);
+            judgeStatus.setUnjudged(playerNum-judgednum);
+            judgeStatusList.add(judgeStatus);
+        }
+        return judgeStatusList;
+    }
 }
 
 

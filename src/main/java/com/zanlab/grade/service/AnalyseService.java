@@ -1,6 +1,7 @@
 package com.zanlab.grade.service;
 
 import com.zanlab.grade.domain.Activity;
+import com.zanlab.grade.domain.JudgeStatus;
 import com.zanlab.grade.domain.Player;
 
 import javax.servlet.ServletOutputStream;
@@ -17,4 +18,6 @@ public interface AnalyseService {
     void exportPlayerRule(Activity act, ServletOutputStream out);
 
     void exportRawData(Activity act, ServletOutputStream out);
+
+    List<JudgeStatus> getJudgeStatus(Integer activityid);
 }

@@ -41,6 +41,16 @@ public class AnalyseController {
         }
         else return JsonResult(-1,"活动不存在");
     }
+
+    //获取评委打分情况
+    @RequestMapping(value = "/judgestatus",method = RequestMethod.GET)
+    public String getJudgeStatus(Integer activityid){
+        if(activityService.hasActivity(activityid)){
+            return JsonResult(analyseService.getJudgeStatus(activityid));
+        }
+        else return JsonResult(-1,"活动不存在");
+    }
+
     //获取选手-评委表
     @RequestMapping(value = "/excel/playerjudge",method = RequestMethod.GET)
     public String downPlayerJudge(HttpServletResponse response, @RequestParam("activityid") Integer activityid){
