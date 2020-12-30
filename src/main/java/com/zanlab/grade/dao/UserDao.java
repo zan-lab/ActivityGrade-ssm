@@ -7,17 +7,16 @@ import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
 @Repository
 public interface UserDao {
-//    @Select("select * from user")
-//    public List<User> findAll();
+    //常见的增删改查
     @Select("select * from user where id = #{id}")
-    public User findById(Integer id);
+    User findById(Integer id);
 
     @Insert("insert into user (openid,judgename,nickname,avatarurl) values (#{openid},#{judgename},#{nickname},#{avatarurl})")
-    public int save(User user);
+    int save(User user);
 
     @Select("select * from user where openid = #{openid}")
-    public User findByOpenid(String openid);
+    User findByOpenid(String openid);
 
     @Update("update user set openid=#{openid},judgename=#{judgename},nickname=#{nickname},avatarurl=#{avatarurl} where id=#{id}")
-    public int update(User user);
+    int update(User user);
 }

@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean register(User user) {
+        //注册时默认把评委名置空，避免sql报错
         user.setJudgename("");
         return userDao.save(user) == 1;
     }
@@ -31,8 +32,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean updateUserInfo(User user) {
+        //查询已有数据
        User u=userDao.findById(user.getId());
-       //将user的内容合并到数据库查到的数据中
+       //将user的内容合并到数据库查到的数据中，避免dao层报错
        combineSydwCore(user,u);
        //更新user，返回影响的行数为1代表更新成功，否则更新失败
        return userDao.update(u)==1;
@@ -50,7 +52,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Boolean updateJudgename(Integer userid, String judgename) {
+        //获取已有数据
         User u=userDao.findById(userid);
+        //更新judgename字段
         u.setJudgename(judgename);
         return userDao.update(u)==1;
     }

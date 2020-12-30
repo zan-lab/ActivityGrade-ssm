@@ -15,6 +15,7 @@ public class RestfulTool {
      * @return 返回string修饰过的json数据
      */
     public static String JsonResult(Object data){
+        //检查数据是否都在，包括检查list数据是否size为0，如果没有数据则返回错误
         if(data==null){
             return JsonResult(-3,"数据未找到");
         }
@@ -27,6 +28,7 @@ public class RestfulTool {
     }
 
     /**
+     * 方便直接返回
      * 成功的返回
      * @return
      */
@@ -42,10 +44,13 @@ public class RestfulTool {
      * @return
      */
     public static String JsonResult(Object data,Integer code,String msg){
+        //创建Map来存json的keyvalue
         Map<String, Object> map = new HashMap<>();
+        //放入三个数据
         map.put("code",code);
         map.put("msg",msg);
         map.put("data",data );
+        //Map转json字符串
         ObjectMapper mapper = new ObjectMapper();
         String result = "";
         try {
@@ -74,6 +79,7 @@ public class RestfulTool {
      */
     public static Map<String,Object>RetObject(String key,Object value){
         Map<String,Object> res=new HashMap<>();
+        //value只可以放平面数据
         res.put(key,value);
         return res;
     }

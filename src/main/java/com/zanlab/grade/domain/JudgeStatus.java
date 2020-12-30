@@ -2,6 +2,7 @@ package com.zanlab.grade.domain;
 
 import java.io.Serializable;
 
+//评委打分情况的平面化数据
 public class JudgeStatus implements Serializable {
     private Integer judgeid;
     private String judgename;

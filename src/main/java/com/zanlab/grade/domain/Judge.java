@@ -10,7 +10,8 @@ public class Judge implements Serializable {
     private Integer activityid;
     private Integer userid;
 
-    //private User user;
+    //不需要json化返回
+    //评委活动多对一
     @JsonIgnore
     private Activity activity;
 

@@ -21,7 +21,8 @@ public class Grade implements Serializable {
     private Double rule9;
     private Double rule10;
 
-    //private Player player;
+    //打分评委一对一
+    //不需要json格式化
     @JsonIgnore
     private Judge judge;
 

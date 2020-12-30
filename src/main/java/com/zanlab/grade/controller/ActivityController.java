@@ -27,6 +27,7 @@ public class ActivityController {
     //创建活动
     @RequestMapping(value = "/",method = RequestMethod.POST)
     public String createActivity(Activity activity){
+        //userid必填
         if(activity.getUserid()==null){
             return JsonResult(-2,"userid缺失");
         }
@@ -38,12 +39,15 @@ public class ActivityController {
     //更新活动基本信息
     @RequestMapping(value = "/",method = RequestMethod.PUT)
     public String updateActivity(Activity activity){
+        //修改需要id必填
         if(activity.getId()==null){
             return JsonResult(-2,"id缺失");
         }
+        //修改需要userid必填
         else if(activity.getUserid()==null){
             return JsonResult(-2,"userid缺失");
         }
+        //判断是否活动存在
         else if(activityService.hasActivity(activity.getId())){
             if(activityService.updateActivity(activity)){
                 return JsonResult();
@@ -56,6 +60,7 @@ public class ActivityController {
     //获取活动的规则列表
     @RequestMapping(value = "/rule",method = RequestMethod.GET)
     public String rulelist(Integer activityid){
+        //判断活动是否存在
         if(activityService.hasActivity(activityid)){
             return JsonResult(ruleService.getListByActivityid(activityid));
         }
@@ -65,6 +70,7 @@ public class ActivityController {
     //活动创建规则
     @RequestMapping(value = "/rule",method = RequestMethod.POST)
     public String createRule(Rule rule){
+        //activityid必填
        if(rule.getActivityid()==null)return JsonResult(-2,"activityid缺失");
        else if(!activityService.hasActivity(rule.getActivityid()))return JsonResult(-2,"activity不存在");
        else {
@@ -142,7 +148,7 @@ public class ActivityController {
     public String endActivity(Integer id){
         if(activityService.hasActivity(id)){
             if(!activityService.isEnd(id)){
-                if(activityService.endService(id))
+                if(activityService.endActivity(id))
                     return JsonResult();
                 else return JsonResult(-5,"结束失败");
             }
@@ -165,6 +171,7 @@ public class ActivityController {
     //获取用户创建的活动列表
     @RequestMapping(value = "/useradmin",method = RequestMethod.GET)
     public String getUserAdminActivity(Integer userid){
+        //判断用户是否存在
         if(!userService.isRegister(userid)){
             return JsonResult(-1,"用户未找到");
         }
@@ -177,6 +184,7 @@ public class ActivityController {
     //获得用户参加的活动列表
     @RequestMapping(value = "/userhas",method = RequestMethod.GET)
     public String getUserActivity(Integer userid){
+        //判断用户是否存在
         if(!userService.isRegister(userid)){
             return JsonResult(-1,"用户未找到");
         }

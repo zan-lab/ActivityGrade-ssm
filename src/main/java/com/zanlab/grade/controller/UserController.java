@@ -26,16 +26,22 @@ public class UserController {
     //用户微信授权登录，根据code获取用户openid
     @RequestMapping(value = "/login",method = {RequestMethod.POST})
     public String login(String code) throws IOException{
+        //小程序基本信息
         String appid="wx69dd67d279607eec";
         String secret="4b418749ed68414cea07b8ca7f3da6bc";
+        //拼接url
         String url="https://api.weixin.qq.com/sns/jscode2session?appid="+appid+"&secret="+secret+"&js_code="+code+"&grant_type=authorization_code";
+        //json转object
         RestTemplate restTemplate = new RestTemplate();
         ObjectMapper mapper=new ObjectMapper();
+        //json转为平板数据
         UserLoginRes res = mapper.readValue(restTemplate.getForObject(url,String.class), UserLoginRes.class);
         if(res.getOpenid()==null){
+            //没有openid说明parse失败了，返回官方返回的数据
             return JsonResult(-5,res.getErrmsg());
         }
         else{
+            //关键句
             return JsonResult(RetObject("openid",res.getOpenid()));
         }
     }
@@ -57,6 +63,7 @@ public class UserController {
                 return JsonResult(-4,"用户已注册");
             }
             else{
+                //关键句
                 if(userService.register(user))return getUserByOpenid(user.getOpenid());
                 else return JsonResult(-5,"添加失败");
             }
@@ -83,6 +90,7 @@ public class UserController {
                 return JsonResult(-3,"未查到此用户");
             }
             else{
+                //关键句
                 if(userService.updateUserInfo(user))return JsonResult();
                 else return JsonResult(-5,"更新失败");
             }
@@ -93,6 +101,7 @@ public class UserController {
     @RequestMapping(value = "/{id}",method = RequestMethod.GET)
     public String getUserById(@PathVariable Integer id){
      if(userService.isRegister(id)){
+         //关键句
          return JsonResult(userService.getUserInfo(id));
      }
      else return  JsonResult(-3,"未查到此用户");
@@ -102,6 +111,7 @@ public class UserController {
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public String getUserByOpenid(String openid){
         if(userService.hasOpenid(openid)){
+            //关键句
             return JsonResult(userService.getUserInfo(openid));
         }
         else return  JsonResult(-3,"未查到此用户");
@@ -111,6 +121,7 @@ public class UserController {
     @RequestMapping(value = "/judgename",method = RequestMethod.PUT)
     public String updateJudgename(Integer id,String judgename){
         if(userService.isRegister(id)){
+            //关键句
             if(userService.updateJudgename(id,judgename))return JsonResult();
             else return JsonResult(-5,"修改失败");
         }

@@ -54,22 +54,30 @@ public class AnalyseController {
     //获取选手-评委表
     @RequestMapping(value = "/excel/playerjudge",method = RequestMethod.GET)
     public String downPlayerJudge(HttpServletResponse response, @RequestParam("activityid") Integer activityid){
+        //需要response，用来返回文件流
         if(!activityService.hasActivity(activityid))return JsonResult(-1,"活动不存在");
+        //获取当前活动activity
         Activity act=activityService.getActivity(activityid);
+        //设置返回格式
         response.setContentType("application/binary;charset=UTF-8");
         try{
+            //打开输出流
             ServletOutputStream out=response.getOutputStream();
             try {
                 //设置文件头：最后一个参数是设置下载文件名
                 response.setHeader("Content-Disposition", "attachment;fileName=" + URLEncoder.encode(act.getName()+"_选手得分表"+".xls", "UTF-8"));
             } catch (UnsupportedEncodingException e1) {
                 e1.printStackTrace();
+                return JsonResult(-5,"系统错误");
             }
+            //导出表并返回下载流
             analyseService.exportPlayerJudge(act,out);
-            return "success";
+            //如果正确导出不会执行return
+            return JsonResult(-5,"正常执行返回");
         } catch(Exception e){
             e.printStackTrace();
-            return "导出信息失败";
+            //报错应该给前端一个返回
+            return JsonResult(-5,"系统错误");
         }
     }
 
@@ -78,20 +86,26 @@ public class AnalyseController {
     public String downPlayerRule(HttpServletResponse response, @RequestParam("activityid") Integer activityid){
         if(!activityService.hasActivity(activityid))return JsonResult(-1,"活动不存在");
         Activity act=activityService.getActivity(activityid);
+        //设置返回格式
         response.setContentType("application/binary;charset=UTF-8");
         try{
+            //打开输出流
             ServletOutputStream out=response.getOutputStream();
             try {
                 //设置文件头：最后一个参数是设置下载文件名
                 response.setHeader("Content-Disposition", "attachment;fileName=" + URLEncoder.encode(act.getName()+"_选手详细得分表"+".xls", "UTF-8"));
             } catch (UnsupportedEncodingException e1) {
-                e1.printStackTrace();
+                //报错应该给前端一个返回
+                return JsonResult(-5,"系统错误");
             }
+            //导出表并返回下载流
             analyseService.exportPlayerRule(act,out);
-            return "success";
+            //正常不会执行到return
+            return JsonResult(-5,"正常返回");
         } catch(Exception e){
             e.printStackTrace();
-            return "导出信息失败";
+            //报错应该给前端一个返回
+            return JsonResult(-5,"系统错误");
         }
     }
 
@@ -100,20 +114,27 @@ public class AnalyseController {
     public String downRawData(HttpServletResponse response, @RequestParam("activityid") Integer activityid){
         if(!activityService.hasActivity(activityid))return JsonResult(-1,"活动不存在");
         Activity act=activityService.getActivity(activityid);
+        //设置返回格式
         response.setContentType("application/binary;charset=UTF-8");
         try{
+            //打开输出流
             ServletOutputStream out=response.getOutputStream();
             try {
                 //设置文件头：最后一个参数是设置下载文件名
                 response.setHeader("Content-Disposition", "attachment;fileName=" + URLEncoder.encode(act.getName()+"_原始数据表"+".xls", "UTF-8"));
             } catch (UnsupportedEncodingException e1) {
                 e1.printStackTrace();
+                //报错应该给前端一个返回
+                return JsonResult(-5,"系统错误");
             }
+            //导出表并返回下载流
             analyseService.exportRawData(act,out);
-            return "success";
+            //正常不会执行到return
+            return JsonResult(-5,"正常返回");
         } catch(Exception e){
             e.printStackTrace();
-            return "导出信息失败";
+            //报错应该给前端一个返回
+            return JsonResult(-5,"系统错误");
         }
     }
 }

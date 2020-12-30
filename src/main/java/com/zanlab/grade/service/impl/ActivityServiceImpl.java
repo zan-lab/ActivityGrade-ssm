@@ -24,12 +24,14 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public Activity createActivity(Activity activity) {
-        //生成code，并且保证code不重复
+        //生成code
         String code=getRandomString(6);
+        //保证code不重复
         while(activityDao.findByCode(code)!=null){
             code=getRandomString(6);
         }
         activity.setInvitationcode(code);
+        //活动起始状态默认为未结束
         activity.setStatus(1);
         //再根据code来获取这个activity
         if(activityDao.save(activity)==1){
@@ -50,13 +52,16 @@ public class ActivityServiceImpl implements ActivityService {
 
     @Override
     public Boolean updateActivity(Activity activity) {
+        //先获取数据库的数据
         Activity act=activityDao.findById(activity.getId());
+        //进行object合并，把数据库数据填入，避免缺少字段报错
         combineSydwCore(activity,act);
         return activityDao.update(act)==1;
     }
 
     @Override
-    public Boolean endService(Integer id) {
+    public Boolean endActivity(Integer id) {
+        //查询该活动
         Activity act= activityDao.findById(id);
         //结束时间定为当前时间
         act.setEndtime(new Date());
@@ -68,6 +73,7 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public Boolean isEnd(Integer id) {
         Activity act=activityDao.findById(id);
+        //0代表已经结束了
         return act.getStatus() == 0;
     }
 
@@ -79,9 +85,9 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public List<Activity> getUserActivity(Integer userid) {
         List<Activity> res= new ArrayList<>();
-        //先根据用户id找评委
+        //先根据用户id找评委列表
         List<Judge> judgeList=judgeDao.findListByUserid(userid);
-        //根据评委找到activity
+        //根据评委找到activity并插入到返回列表
         for(Judge judge : judgeList){
             res.add(judge.getActivity());
         }

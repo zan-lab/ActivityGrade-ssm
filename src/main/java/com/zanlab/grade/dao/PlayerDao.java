@@ -9,17 +9,15 @@ import java.util.List;
 
 @Repository
 public interface PlayerDao {
-//    @Select("select *,id as playerid from player")
-//    @Results(id="gradesMap",value = {
-//            @Result(column = "playerid",property = "grades",many = @Many(select = "com.zanlab.grade.dao.GradeDao.findListByActivityid",fetchType = FetchType.LAZY)),
-//    })
-//     List<Player>findAll();
+
+    //获取活动选手list
     @Select("select *,activityid as aid from player where activityid=#{activityId}")
     @Results(id="playerMap",value = {
             @Result(property = "grades",column = "aid",many = @Many(select = "com.zanlab.grade.dao.GradeDao.findListByActivityid",fetchType = FetchType.LAZY)),
     })
     List<Player>findListByActivityid(Integer activityId);
 
+    //添加选手sql
     @Insert("insert into player (activityid,name,projectname) values(#{activityid},#{name},#{projectname})")
     int save(Player player);
 
@@ -30,16 +28,19 @@ public interface PlayerDao {
     @Update("update player set activityid=#{activityid},name=#{name},projectname=#{projectname} where id=#{id}")
     int update(Player p);
 
+    //评委打分时，对player表同步进行更新
     @Update("update player set activityid=#{activityid},name=#{name},projectname=#{projectname},score=#{score},fairscore=#{fairscore} where id=#{id}")
-    int updateWithScore(Player p);
+    void updateWithScore(Player p);
 
     @Delete("delete from player where id=#{id}")
     int delete(Integer id);
 
+    //获取某个活动根据Score列进行排序的结果
     @Select("select *,activityid as aid from player where activityid=#{activityid} order by score desc")
     @ResultMap("playerMap")
     List<Player> findListByActivityidOrderScore(Integer activityid);
 
+    //获取某个活动根据fairscore列进行排序的结果
     @Select("select *,activityid as aid from player where activityid=#{activityid} order by fairscore desc")
     @ResultMap("playerMap")
     List<Player> findListByActivityidOrderByFariScore(Integer activityid);

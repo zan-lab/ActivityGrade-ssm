@@ -14,6 +14,7 @@ public class Player implements Serializable {
     private Double score;
     private Double fairscore;
 
+    //选手得分一对多
     @JsonIgnore
     private List<Grade> grades;
     public Integer getId() {

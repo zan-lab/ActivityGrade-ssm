@@ -5,13 +5,14 @@ import com.zanlab.grade.domain.Rule;
 import java.util.List;
 
 public interface RuleService {
-    public List<Rule>getListByActivityid(Integer activityid);
+    //规则增删改查以及判断活动是否存在
+    List<Rule>getListByActivityid(Integer activityid);
 
-    public Boolean createRule(Rule rule);
+    Boolean createRule(Rule rule);
 
-    public Boolean updateRule(Rule rule);
+    Boolean updateRule(Rule rule);
 
-    public Boolean deleteRule(Integer id);
+    Boolean deleteRule(Integer id);
 
-    public Boolean hasRule(Integer id);
+    Boolean hasRule(Integer id);
 }

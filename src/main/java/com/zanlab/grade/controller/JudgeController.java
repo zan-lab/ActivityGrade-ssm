@@ -30,6 +30,7 @@ public class JudgeController {
     @RequestMapping(value = "/",method = RequestMethod.GET)
     public String judgeList(Integer activityid){
         if(activityService.hasActivity(activityid)){
+            //关键句
             return JsonResult(judgeService.getJudgeListByActivityid(activityid));
         }
         else {
@@ -49,6 +50,7 @@ public class JudgeController {
             else{
                 if(userService.isRegister(judge.getUserid())){
                     if(activityService.hasActivity(judge.getActivityid())){
+                        //关键句
                         if(judgeService.addJudge(judge))return JsonResult();
                         else return JsonResult(-5,"添加失败");
                     }
@@ -65,6 +67,7 @@ public class JudgeController {
         if(userService.isRegister(judgePara.getUserid())){
             if(activityService.hasActivity(judgePara.getActivityid())){
                 Judge judge=judgeService.getByUserandActivity(judgePara.getUserid(),judgePara.getActivityid());
+                //关键句
                 if(judge==null)return JsonResult(RetObject("judgeid",null));
                 else return JsonResult(RetObject("judgeid",judge.getId()));
             }
@@ -81,6 +84,7 @@ public class JudgeController {
         else if(grade.getPlayerid()==null)return JsonResult(-2,"选手id缺少");
         else{
             if(!judgeService.hasGrade(grade.getJudgeid(),grade.getPlayerid())){
+                //关键句
                 if(judgeService.judge(grade))return JsonResult();
                 else return JsonResult(-5,"打分失败");
             }
@@ -95,6 +99,7 @@ public class JudgeController {
         else if(grade.getPlayerid()==null)return JsonResult(-2,"选手id缺少");
         else{
             if(judgeService.hasGrade(grade.getJudgeid(),grade.getPlayerid())){
+                //关键句
                 if(judgeService.updateGrade(grade))return JsonResult();
                 else return JsonResult(-5,"修改错误");
             }
@@ -106,6 +111,7 @@ public class JudgeController {
     @RequestMapping(value = "/unjudged",method = RequestMethod.GET)
     public String getUnjudgedPlayer(Integer judgeid){
         if(judgeService.hasJudge(judgeid)){
+            //关键句
             return JsonResult(judgeService.getUnjudgedPlayerList(judgeid));
         }
         return JsonResult(-1,"评委不存在");
@@ -115,6 +121,7 @@ public class JudgeController {
     @RequestMapping(value = "/hasjudged",method = RequestMethod.GET)
     public String getJudgedPlayer(Integer judgeid){
         if(judgeService.hasJudge(judgeid)){
+            //关键句
             return JsonResult(judgeService.getJudgedPlayerList(judgeid));
         }
         return JsonResult(-1,"评委不存在");

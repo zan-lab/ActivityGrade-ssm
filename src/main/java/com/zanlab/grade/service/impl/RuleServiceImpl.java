@@ -27,7 +27,9 @@ public class RuleServiceImpl implements RuleService {
 
     @Override
     public Boolean updateRule(Rule rule) {
+        //数据库拿到已有数据
         Rule r=ruleDao.findById(rule.getId());
+        //合并对象，避免数据缺失造成dao层报错
         combineSydwCore(rule,r);
         return ruleDao.update(r)==1;
     }

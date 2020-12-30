@@ -2,6 +2,7 @@ package com.zanlab.grade.domain;
 
 import java.io.Serializable;
 
+//微信获取openid时的平面化数据
 public class UserLoginRes implements Serializable {
     private String openid;
     private String session_key;

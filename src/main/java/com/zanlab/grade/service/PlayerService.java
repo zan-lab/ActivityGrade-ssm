@@ -6,17 +6,23 @@ import com.zanlab.grade.domain.Player;
 import java.util.List;
 
 public interface PlayerService {
-    public List<Player> getListByActivityid(Integer activityid);
+    //根据活动id获取活动选手列表
+    List<Player> getListByActivityid(Integer activityid);
 
-    public Boolean createPlayer(Player player);
+    //活动创建选手
+    Boolean createPlayer(Player player);
 
-    public Boolean updatePlayer(Player player);
+    //活动更新选手基本信息
+    Boolean updatePlayer(Player player);
 
-    public Boolean deletePlayer(Integer id);
+    //活动删除选手
+    Boolean deletePlayer(Integer id);
 
-    public Boolean hasPlayer(Integer id);
+    //判断选手是否存在
+    Boolean hasPlayer(Integer id);
 
-    public void updateAverage(Integer id);
+    //更新选手基本信息
+    void updateAverage(Integer id);
 
 
 }

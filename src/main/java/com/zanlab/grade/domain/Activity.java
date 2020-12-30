@@ -14,6 +14,7 @@ public class Activity implements Serializable {
     private Integer status;
     private String invitationcode;
     private Integer userid;
+    //时间进行格式化，为了写入和读取
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss" ,timezone="GMT+8")
     private Date begintime;
@@ -26,11 +27,7 @@ public class Activity implements Serializable {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss" ,timezone="GMT+8")
     private Date updatetime;
-    //private User user;
-    //private List<Player> players;
-    //private List<Rule> rules;
-    //private List<Grade> grades;
-    //private List<Judge>judges;
+
     public Integer getUserid() {
         return userid;
     }

@@ -18,13 +18,14 @@
         <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
     </context:component-scan>
     <!--Spring整合MyBatis框架-->
-    <!--配置连接池-->
+    <!--配置连接池,生产环境-->
     <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
         <property name="jdbcUrl" value="jdbc:mysql://121.36.94.205:3306/zsdhdpf?useUnicode=yes&amp;characterEncoding=utf8&amp;useAffectedRows=true"/>
         <property name="user" value="zsdhdpf"/>
         <property name="password" value="zsdhdpf"/>
     </bean>
+<!--    本地环境使用这个-->
     <bean id="dataSourceDebug" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
         <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/zsdhdpf?useUnicode=yes&amp;characterEncoding=utf8&amp;useAffectedRows=true"/>

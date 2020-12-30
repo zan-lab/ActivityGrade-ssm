@@ -12,6 +12,7 @@ public class CommonUtils {
      * @return
      */
     public static String getRandomString(int length){
+        //从大写小写数字中随机
         String str="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         Random random=new Random();
         StringBuffer sb=new StringBuffer();
