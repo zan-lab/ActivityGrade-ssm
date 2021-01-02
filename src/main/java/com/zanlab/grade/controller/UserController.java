@@ -1,15 +1,14 @@
 package com.zanlab.grade.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zanlab.grade.domain.User;
 import com.zanlab.grade.domain.UserLoginRes;
 import com.zanlab.grade.service.UserService;
+import com.zanlab.grade.service.WxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 
@@ -22,20 +21,12 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
+    @Autowired
+    private WxService wxService;
     //用户微信授权登录，根据code获取用户openid
     @RequestMapping(value = "/login",method = {RequestMethod.POST})
     public String login(String code) throws IOException{
-        //小程序基本信息
-        String appid="wx69dd67d279607eec";
-        String secret="4b418749ed68414cea07b8ca7f3da6bc";
-        //拼接url
-        String url="https://api.weixin.qq.com/sns/jscode2session?appid="+appid+"&secret="+secret+"&js_code="+code+"&grant_type=authorization_code";
-        //json转object
-        RestTemplate restTemplate = new RestTemplate();
-        ObjectMapper mapper=new ObjectMapper();
-        //json转为平板数据
-        UserLoginRes res = mapper.readValue(restTemplate.getForObject(url,String.class), UserLoginRes.class);
+        UserLoginRes res=wxService.code2Session(code);
         if(res.getOpenid()==null){
             //没有openid说明parse失败了，返回官方返回的数据
             return JsonResult(-5,res.getErrmsg());

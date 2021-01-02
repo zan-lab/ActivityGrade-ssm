@@ -194,4 +194,18 @@ public class ActivityController {
 
     }
 
+    //获取活动二维码
+    @RequestMapping(value = "/qrcode",method = RequestMethod.GET)
+    public String ActivityQRCode(Integer activityid){
+        //判断用户是否存在
+        if(!activityService.hasActivity(activityid)){
+            return JsonResult(-1,"活动未找到");
+        }
+        else{
+            //未写完
+            return null;
+        }
+
+    }
+
 }
