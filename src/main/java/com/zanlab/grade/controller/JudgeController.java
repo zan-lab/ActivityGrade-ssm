@@ -64,6 +64,8 @@ public class JudgeController {
     //查看评委id
     @RequestMapping(value = "/id",method = RequestMethod.GET)
     public String getJudgeId(Judge judgePara){
+        if(judgePara.getUserid()==null)return JsonResult(-2,"缺少用户id");
+        if(judgePara.getActivityid()==null)return JsonResult(-2,"缺少活动id");
         if(userService.isRegister(judgePara.getUserid())){
             if(activityService.hasActivity(judgePara.getActivityid())){
                 Judge judge=judgeService.getByUserandActivity(judgePara.getUserid(),judgePara.getActivityid());
@@ -91,6 +93,21 @@ public class JudgeController {
             else return JsonResult(-1,"评委已经打分");
         }
     }
+
+    //查看指定评委对指定选手的打分
+    @RequestMapping(value = "/detail",method = RequestMethod.GET)
+    public String judgedetail(Grade grade){
+        if(grade.getJudgeid()==null)return JsonResult(-2,"评委id缺少");
+        else if(grade.getPlayerid()==null)return JsonResult(-2,"选手id缺少");
+        else{
+            if(judgeService.hasGrade(grade.getJudgeid(),grade.getPlayerid())){
+                //关键句
+                return JsonResult(judgeService.getGrade(grade.getJudgeid(),grade.getPlayerid()));
+            }
+            else return JsonResult(-1,"评委未打分");
+        }
+    }
+
     //评委修改评分
     @RequestMapping(value = "/judge",method = RequestMethod.PUT)
     public String rejudge(Grade grade){

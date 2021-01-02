@@ -70,6 +70,12 @@ public class JudgeServiceImpl implements JudgeService {
 
     }
 
+
+    @Override
+    public Grade getGrade(Integer judgeid,Integer playerid) {
+        return gradeDao.findByJidandPid(judgeid,playerid);
+    }
+
     @Override
     public Boolean hasGrade(Integer judgeid,Integer playerid) {
         return gradeDao.findByJidandPid(judgeid,playerid)!=null;

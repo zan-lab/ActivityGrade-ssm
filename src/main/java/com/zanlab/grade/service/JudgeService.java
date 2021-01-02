@@ -16,6 +16,9 @@ public interface JudgeService {
     //评委打分
     Boolean judge(Grade grade);
 
+    //获取指定评委对指定选手的打分
+    Grade getGrade(Integer judgeid,Integer playerid);
+
     //评委是否对指定选手已经打分了
     Boolean hasGrade(Integer judgeid,Integer playerid);
 
