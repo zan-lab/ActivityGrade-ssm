@@ -1,18 +1,26 @@
 package com.zanlab.grade.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zanlab.grade.dao.ActivityDao;
 import com.zanlab.grade.dao.JudgeDao;
+import com.zanlab.grade.dao.QrcodeDao;
 import com.zanlab.grade.domain.Activity;
 import com.zanlab.grade.domain.Judge;
+import com.zanlab.grade.domain.Qrcode;
 import com.zanlab.grade.service.ActivityService;
+import com.zanlab.grade.service.RedisService;
+import com.zanlab.grade.service.WxService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.io.IOException;
+import java.util.*;
 
 import static com.zanlab.grade.utils.CommonUtils.getRandomString;
+import static com.zanlab.grade.utils.Network.uploadWxQrCode;
 import static com.zanlab.grade.utils.ObjectCombine.combineSydwCore;
 
 @Service("activityService")
@@ -21,7 +29,12 @@ public class ActivityServiceImpl implements ActivityService {
     private ActivityDao activityDao;
     @Autowired
     private JudgeDao judgeDao;
-
+    @Autowired
+    private WxService wxService;
+    @Autowired
+    private RedisService redisService;
+    @Autowired
+    private QrcodeDao qrcodeDao;
     @Override
     public Activity createActivity(Activity activity) {
         //生成code
@@ -97,5 +110,47 @@ public class ActivityServiceImpl implements ActivityService {
     @Override
     public Activity getActivityByCode(String code) {
         return activityDao.findByCode(code);
+    }
+
+    @Override
+    public String getQRCodeUrl(Integer activityid) {
+        //id不存在就直接返回null
+        if(activityid==null)return null;
+        //如果不为空说明有数据，直接返回即可
+        Qrcode qc=qrcodeDao.findByActivityid(activityid);
+        if(qc!=null)return qc.getUrl();
+
+        String access_token=redisService.get("access_token");
+        if(access_token==null){
+            try {
+                access_token=wxService.getAccessToken();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        String url="https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token="+access_token;
+        Map<String, Object> params = new HashMap<String, Object>();
+        params.put("scene", "id="+activityid);
+        params.put("page", "pages/activity/activity");
+        ObjectMapper mapper = new ObjectMapper();
+        String result = "";
+        try {
+            result = mapper.writeValueAsString(params);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        RestTemplate restTemplate = new RestTemplate();
+        byte[] byteArray = null;
+        ResponseEntity<byte[]> entity= restTemplate.postForEntity(url, result,byte[].class);
+        System.out.println(entity);
+        System.out.println(Arrays.toString(entity.getBody()));
+        byteArray=entity.getBody();
+        String p= uploadWxQrCode(byteArray,"images/"+ UUID.randomUUID()+".png");
+        System.out.println(p);
+        Qrcode qrcode=new Qrcode();
+        qrcode.setActivityd(activityid);
+        qrcode.setUrl(url);
+        qrcodeDao.Save(qrcode);
+        return null;
     }
 }

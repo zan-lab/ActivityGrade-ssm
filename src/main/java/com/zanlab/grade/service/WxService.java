@@ -6,6 +6,6 @@ import java.io.IOException;
 
 public interface WxService {
 
-    String getAccessToken();
+    String getAccessToken() throws IOException;
     UserLoginRes code2Session(String code) throws IOException;
 }

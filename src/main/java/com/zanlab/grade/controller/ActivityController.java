@@ -202,8 +202,8 @@ public class ActivityController {
             return JsonResult(-1,"活动未找到");
         }
         else{
-            //未写完
-            return null;
+            String url=activityService.getQRCodeUrl(activityid);
+            return "index";
         }
 
     }

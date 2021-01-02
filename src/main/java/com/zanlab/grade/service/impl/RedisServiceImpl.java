@@ -68,8 +68,8 @@ public class RedisServiceImpl implements RedisService {
         //如果是空则返回null
         if(redis==null)return null;
         else {
-            //判断是否过期了
-            if(ttl(key)<0){
+            //判断是否过期了,小于10s认为过期了
+            if(ttl(key)<10){
                 return null;
             }
             else return redis.getValue();
