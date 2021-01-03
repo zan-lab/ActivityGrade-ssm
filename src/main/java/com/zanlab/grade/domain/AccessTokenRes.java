@@ -39,4 +39,14 @@ public class AccessTokenRes {
     public void setErrmsg(String errmsg) {
         this.errmsg = errmsg;
     }
+
+    @Override
+    public String toString() {
+        return "AccessTokenRes{" +
+                "access_token='" + access_token + '\'' +
+                ", expires_in=" + expires_in +
+                ", errcode=" + errcode +
+                ", errmsg='" + errmsg + '\'' +
+                '}';
+    }
 }

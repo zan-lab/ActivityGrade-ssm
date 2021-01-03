@@ -9,13 +9,6 @@ import java.util.List;
 @Repository
 public interface ActivityDao {
     @Select("select *  from activity")
-    @Results(id = "activityMap",value = {
-//            @Result(property = "judges",column = "activityid",many=@Many(select = "com.zanlab.grade.dao.JudgeDao.findListByActivityid",fetchType = FetchType.LAZY)),
-//            @Result(property = "user",column = "uid",one=@One(select = "com.zanlab.grade.dao.UserDao.findById",fetchType = FetchType.EAGER)),
-//            @Result(property = "players",column = "activityid",many = @Many(select = "com.zanlab.grade.dao.PlayerDao.findListByActivityid",fetchType = FetchType.LAZY)),
-//            @Result(property = "grades",column = "activityid",many = @Many(select = "com.zanlab.grade.dao.GradeDao.findListByActivityid",fetchType = FetchType.LAZY)),
-//            @Result(property = "rules",column = "activityid",many = @Many(select = "com.zanlab.grade.dao.RuleDao.findListByActivityid",fetchType = FetchType.LAZY)),
-    })
     List<Activity>findAll();
 
     //根据邀请码返回对应个体

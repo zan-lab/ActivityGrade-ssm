@@ -119,22 +119,27 @@ public class ActivityServiceImpl implements ActivityService {
         //如果不为空说明有数据，直接返回即可
         Qrcode qc=qrcodeDao.findByActivityid(activityid);
         if(qc!=null)return qc.getUrl();
-
+        //获取redis里的access_token
         String access_token=redisService.get("access_token");
         if(access_token==null){
             try {
+                //如果不存在或者过期了需要重新获取
                 access_token=wxService.getAccessToken();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        //请求小程序码二进制流
         String url="https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token="+access_token;
         Map<String, Object> params = new HashMap<String, Object>();
+        //页面传参
         params.put("scene", "id="+activityid);
+        //选择界面
         params.put("page", "pages/activity/activity");
         ObjectMapper mapper = new ObjectMapper();
         String result = "";
         try {
+            //object转字符串
             result = mapper.writeValueAsString(params);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -142,15 +147,19 @@ public class ActivityServiceImpl implements ActivityService {
         RestTemplate restTemplate = new RestTemplate();
         byte[] byteArray = null;
         ResponseEntity<byte[]> entity= restTemplate.postForEntity(url, result,byte[].class);
-        System.out.println(entity);
-        System.out.println(Arrays.toString(entity.getBody()));
+        //AccessTokenRes entity= restTemplate.postForObject(url, result,AccessTokenRes.class);
+        //System.out.println(entity);
+        //System.out.println(entity.getBody());
+        //System.out.println(Arrays.toString(entity.getBody()));
         byteArray=entity.getBody();
-        String p= uploadWxQrCode(byteArray,"images/"+ UUID.randomUUID()+".png");
-        System.out.println(p);
+        //传入二进制流、文件名，返回地址
+        String p= uploadWxQrCode(byteArray,"qrcode/"+ UUID.randomUUID()+".png");
+        //System.out.println(p);
+        //地址存入数据库
         Qrcode qrcode=new Qrcode();
-        qrcode.setActivityd(activityid);
-        qrcode.setUrl(url);
+        qrcode.setActivityid(activityid);
+        qrcode.setUrl(p);
         qrcodeDao.Save(qrcode);
-        return null;
+        return p;
     }
 }

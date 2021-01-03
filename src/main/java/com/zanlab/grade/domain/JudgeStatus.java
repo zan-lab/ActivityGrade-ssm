@@ -6,7 +6,9 @@ import java.io.Serializable;
 public class JudgeStatus implements Serializable {
     private Integer judgeid;
     private String judgename;
+    //已经打分数
     private Integer hasjudged;
+    //未评数
     private Integer unjudged;
     public JudgeStatus(Judge judge){
         this.judgeid=judge.getId();

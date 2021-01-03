@@ -33,5 +33,6 @@ public interface ActivityService {
     //通过邀请码获取活动
     Activity getActivityByCode(String code);
 
+    //通过活动获取小程序二维码地址
     String getQRCodeUrl(Integer activityid);
 }

@@ -3,7 +3,10 @@ package com.zanlab.grade.controller;
 import com.zanlab.grade.domain.Activity;
 import com.zanlab.grade.domain.Player;
 import com.zanlab.grade.domain.Rule;
-import com.zanlab.grade.service.*;
+import com.zanlab.grade.service.ActivityService;
+import com.zanlab.grade.service.PlayerService;
+import com.zanlab.grade.service.RuleService;
+import com.zanlab.grade.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import static com.zanlab.grade.utils.RestfulTool.JsonResult;
+import static com.zanlab.grade.utils.RestfulTool.RetObject;
 
 @RestController
 @RequestMapping(value = "/activity",produces = "application/json;charset=UTF-8")
@@ -202,8 +206,10 @@ public class ActivityController {
             return JsonResult(-1,"活动未找到");
         }
         else{
+            //关键句
             String url=activityService.getQRCodeUrl(activityid);
-            return "index";
+            if(url==null)return JsonResult(-5,"获取失败");
+            else return JsonResult(RetObject("url",url));
         }
 
     }

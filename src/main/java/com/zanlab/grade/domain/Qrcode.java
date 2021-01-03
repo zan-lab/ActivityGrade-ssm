@@ -4,7 +4,9 @@ import java.io.Serializable;
 
 public class Qrcode implements Serializable {
     private Integer id;
-    private Integer activityd;
+    //活动id
+    private Integer activityid;
+    //qrcodeurl，目前存在七牛云
     private String url;
 
     public Integer getId() {
@@ -15,12 +17,12 @@ public class Qrcode implements Serializable {
         this.id = id;
     }
 
-    public Integer getActivityd() {
-        return activityd;
+    public Integer getActivityid() {
+        return activityid;
     }
 
-    public void setActivityd(Integer activityd) {
-        this.activityd = activityd;
+    public void setActivityid(Integer activityid) {
+        this.activityid = activityid;
     }
 
     public String getUrl() {

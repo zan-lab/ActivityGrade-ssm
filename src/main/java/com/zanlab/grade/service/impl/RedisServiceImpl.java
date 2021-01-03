@@ -36,6 +36,7 @@ public class RedisServiceImpl implements RedisService {
     public Redis set(String key, String value, Date expiretime) {
         //首先判断是否存在
         Redis rs=redisDao.findByKey(key);
+        System.out.println(rs);
         if(rs!=null){
             //如果非空，需要把内容填进去并且更新
             rs.setKey(key);
