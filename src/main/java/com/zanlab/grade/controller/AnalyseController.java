@@ -58,8 +58,8 @@ public class AnalyseController {
         if(!activityService.hasActivity(activityid))return JsonResult(-1,"活动不存在");
         //获取当前活动activity
         Activity act=activityService.getActivity(activityid);
-        //设置返回格式
-        response.setContentType("application/binary;charset=UTF-8");
+        //设置返回格式,注意微信需要这样设置contenttype
+        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         try{
             //打开输出流
             ServletOutputStream out=response.getOutputStream();
@@ -86,8 +86,8 @@ public class AnalyseController {
     public String downPlayerRule(HttpServletResponse response, @RequestParam("activityid") Integer activityid){
         if(!activityService.hasActivity(activityid))return JsonResult(-1,"活动不存在");
         Activity act=activityService.getActivity(activityid);
-        //设置返回格式
-        response.setContentType("application/binary;charset=UTF-8");
+        //设置返回格式,注意微信需要这样设置contenttype
+        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         try{
             //打开输出流
             ServletOutputStream out=response.getOutputStream();
@@ -114,8 +114,8 @@ public class AnalyseController {
     public String downRawData(HttpServletResponse response, @RequestParam("activityid") Integer activityid){
         if(!activityService.hasActivity(activityid))return JsonResult(-1,"活动不存在");
         Activity act=activityService.getActivity(activityid);
-        //设置返回格式
-        response.setContentType("application/binary;charset=UTF-8");
+        //设置返回格式,注意微信需要这样设置contenttype
+        response.setContentType("application/vnd.ms-excel;charset=UTF-8");
         try{
             //打开输出流
             ServletOutputStream out=response.getOutputStream();
