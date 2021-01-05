@@ -31,6 +31,7 @@ public class CommonUtils {
      */
     public static double calculateAverage(List<Double> scoreList, int fairweight){
         int num=scoreList.size();
+        if(num==0)return 0;
         //如果数量不够就不截尾巴
         if(num<=fairweight*2){
             return calculateAverage(scoreList,0);
