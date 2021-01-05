@@ -147,11 +147,12 @@ public class ActivityServiceImpl implements ActivityService {
         RestTemplate restTemplate = new RestTemplate();
         byte[] byteArray = null;
         ResponseEntity<byte[]> entity= restTemplate.postForEntity(url, result,byte[].class);
+        byteArray=entity.getBody();
         //AccessTokenRes entity= restTemplate.postForObject(url, result,AccessTokenRes.class);
         //System.out.println(entity);
         //System.out.println(entity.getBody());
         //System.out.println(Arrays.toString(entity.getBody()));
-        byteArray=entity.getBody();
+
         //传入二进制流、文件名，返回地址
         String p= uploadWxQrCode(byteArray,"qrcode/"+ UUID.randomUUID()+".png");
         //System.out.println(p);

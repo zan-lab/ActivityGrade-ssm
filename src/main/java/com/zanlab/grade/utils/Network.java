@@ -15,7 +15,7 @@ import java.io.InputStream;
 
 public class Network {
     public static String uploadWxQrCode(byte[] byteArray,String fileName){
-        final String QINIU_UPLOAD_SITE ="http://img.hdpf.zanlab.laoluoli.cn/qrcode/";
+        final String QINIU_UPLOAD_SITE ="http://img.hdpf.zanlab.laoluoli.cn/";
         final String ACCESS_KEY="gH9fsOn7qtm_5V7gQLf-PN0OuAyo829qALpT4j5v";
         final String SECRET_KEY="_ZweRHskrZz5Ehlk_UzTIBx3xeXjaC_kavLYxHiS";
         final String BUCKET="hdpf";
@@ -38,8 +38,8 @@ public class Network {
             //RestTemplate restTemplate = new RestTemplate();
             ObjectMapper mapper=new ObjectMapper();
             DefaultPutRet putRet=mapper.readValue(response.bodyString(),DefaultPutRet.class);
-            System.out.println(putRet.key);
-            System.out.println(putRet.hash);
+//            System.out.println(putRet.key);
+//            System.out.println(putRet.hash);
             return QINIU_UPLOAD_SITE+putRet.key;
         } catch (QiniuException ex) {
             Response r = ex.response;
