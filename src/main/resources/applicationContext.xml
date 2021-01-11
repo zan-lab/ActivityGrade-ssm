@@ -24,6 +24,10 @@
         <property name="url" value="jdbc:mysql://121.36.94.205:3306/zsdhdpf?useUnicode=yes&amp;characterEncoding=utf8&amp;useAffectedRows=true" />
         <property name="username" value="zsdhdpf" />
         <property name="password" value="zsdhdpf" />
+<!--        <property name="driverClassName" value="com.mysql.jdbc.Driver" />-->
+<!--        <property name="url" value="jdbc:mysql://rm-bp18gphnjit2enzhxqo.mysql.rds.aliyuncs.com?useUnicode=yes&amp;characterEncoding=utf8&amp;useAffectedRows=true" />-->
+<!--        <property name="username" value="zsdhdpf" />-->
+<!--        <property name="password" value="zsdhdpf" />-->
         <!--初始化值-->
         <property name="initialSize" value="3" />
         <!--最小空余的数量-->

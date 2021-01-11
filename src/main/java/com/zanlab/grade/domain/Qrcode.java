@@ -8,6 +8,16 @@ public class Qrcode implements Serializable {
     private Integer activityid;
     //qrcodeurl，目前存在七牛云
     private String url;
+    //1评委邀请二维码，2正常均值二维码，3截尾均值二维码
+    private Integer type;
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
 
     public Integer getId() {
         return id;

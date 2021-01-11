@@ -198,16 +198,16 @@ public class ActivityController {
 
     }
 
-    //获取活动二维码
+    //获取活动相关二维码
     @RequestMapping(value = "/qrcode",method = RequestMethod.GET)
-    public String ActivityQRCode(Integer activityid){
+    public String ActivityQRCode(Integer activityid,Integer type){
         //判断用户是否存在
         if(!activityService.hasActivity(activityid)){
             return JsonResult(-1,"活动未找到");
         }
         else{
-            //关键句
-            String url=activityService.getQRCodeUrl(activityid);
+            //关键句,获取对应类型的二维码
+            String url=activityService.getQRCodeUrl(activityid,type);
             if(url==null)return JsonResult(-5,"获取失败");
             else return JsonResult(RetObject("url",url));
         }

@@ -113,11 +113,11 @@ public class ActivityServiceImpl implements ActivityService {
     }
 
     @Override
-    public String getQRCodeUrl(Integer activityid) {
+    public String getQRCodeUrl(Integer activityid,Integer type) {
         //id不存在就直接返回null
         if(activityid==null)return null;
         //如果不为空说明有数据，直接返回即可
-        Qrcode qc=qrcodeDao.findByActivityid(activityid);
+        Qrcode qc=qrcodeDao.findByActivityidType(activityid,type);
         if(qc!=null)return qc.getUrl();
         //获取redis里的access_token
         String access_token=redisService.get("access_token");
@@ -131,11 +131,17 @@ public class ActivityServiceImpl implements ActivityService {
         }
         //请求小程序码二进制流
         String url="https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token="+access_token;
-        Map<String, Object> params = new HashMap<String, Object>();
+        Map<String, Object> params = new HashMap<>();
         //页面传参
         params.put("scene", "id="+activityid);
         //选择界面
-        params.put("page", "pages/activity/activity");
+        switch(type){
+            case 1:params.put("page", "pages/activity/activity");break;
+            case 2:params.put("page", "pages/averagescoreranking/averagescoreranking");break;
+            case 3:params.put("page", "pages/averagetruncatedrank/averagetruncatedrank");break;
+            default:return null;
+        }
+
         ObjectMapper mapper = new ObjectMapper();
         String result = "";
         try {
@@ -160,7 +166,9 @@ public class ActivityServiceImpl implements ActivityService {
         Qrcode qrcode=new Qrcode();
         qrcode.setActivityid(activityid);
         qrcode.setUrl(p);
+        qrcode.setType(type);
         qrcodeDao.Save(qrcode);
         return p;
     }
+
 }

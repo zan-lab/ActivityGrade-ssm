@@ -34,5 +34,5 @@ public interface ActivityService {
     Activity getActivityByCode(String code);
 
     //通过活动获取小程序二维码地址
-    String getQRCodeUrl(Integer activityid);
+    String getQRCodeUrl(Integer activityid,Integer type);
 }
