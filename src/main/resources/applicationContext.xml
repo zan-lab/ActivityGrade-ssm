@@ -19,12 +19,29 @@
     </context:component-scan>
     <!--Spring整合MyBatis框架-->
     <!--配置连接池,生产环境-->
-    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
-        <property name="driverClass" value="com.mysql.jdbc.Driver"/>
-        <property name="jdbcUrl" value="jdbc:mysql://121.36.94.205:3306/zsdhdpf?useUnicode=yes&amp;characterEncoding=utf8&amp;useAffectedRows=true"/>
-        <property name="user" value="zsdhdpf"/>
-        <property name="password" value="zsdhdpf"/>
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://121.36.94.205:3306/zsdhdpf?useUnicode=yes&amp;characterEncoding=utf8&amp;useAffectedRows=true" />
+        <property name="username" value="zsdhdpf" />
+        <property name="password" value="zsdhdpf" />
+        <!--初始化值-->
+        <property name="initialSize" value="3" />
+        <!--最小空余的数量-->
+        <property name="minIdle" value="3" />
+        <!--最大连接数量-->
+        <property name="maxActive" value="20" />
+        <!--最长等待时间-->
+        <property name="maxWait" value="60000" />
+<!--        检测链接有效性-->
+        <property name="validationQuery" value="select 1" />
     </bean>
+
+<!--    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
+<!--        <property name="driverClass" value="com.mysql.jdbc.Driver"/>-->
+<!--        <property name="jdbcUrl" value="jdbc:mysql://121.36.94.205:3306/zsdhdpf?useUnicode=yes&amp;characterEncoding=utf8&amp;useAffectedRows=true"/>-->
+<!--        <property name="user" value="zsdhdpf"/>-->
+<!--        <property name="password" value="zsdhdpf"/>-->
+<!--    </bean>-->
 <!--    本地环境使用这个-->
     <bean id="dataSourceDebug" class="com.mchange.v2.c3p0.ComboPooledDataSource">
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
