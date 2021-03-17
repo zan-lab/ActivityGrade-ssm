@@ -14,6 +14,8 @@ public class Activity implements Serializable {
     private Integer status;
     private String invitationcode;
     private Integer userid;
+    private Integer maxjudge;
+
     //时间进行格式化，为了写入和读取
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss" ,timezone="GMT+8")
@@ -116,6 +118,13 @@ public class Activity implements Serializable {
         this.createtime = createtime;
     }
 
+    public Integer getMaxjudge() {
+        return maxjudge;
+    }
+
+    public void setMaxjudge(Integer maxjudge) {
+        this.maxjudge = maxjudge;
+    }
 
     @Override
     public String toString() {
@@ -127,6 +136,7 @@ public class Activity implements Serializable {
                 ", status=" + status +
                 ", invitationcode='" + invitationcode + '\'' +
                 ", userid=" + userid +
+                ", maxjudger=" + maxjudge +
                 ", begintime=" + begintime +
                 ", endtime=" + endtime +
                 ", createtime=" + createtime +

@@ -68,7 +68,8 @@ public class AnalyseServiceImpl implements AnalyseService {
             HSSFCell hssfCell = null;
             for (int i = 1; i <= judges.size(); i++) {
                 hssfCell = row.createCell(i);//列索引
-                hssfCell.setCellValue("评委"+i);//列名1
+//                hssfCell.setCellValue("评委"+i);//列名1
+                hssfCell.setCellValue(judges.get(i).getName());
                 hssfCell.setCellStyle(hssfCellStyle);//列居中显示
             }
 
@@ -329,7 +330,8 @@ public class AnalyseServiceImpl implements AnalyseService {
 
                     Grade grade=grades.get(nowth-1);
                     //开始写每个规则的成绩
-
+                    //开始前先记录行数+1
+                    nowth++;
                     //创建value用户暂存读取的规则数据
                     Double value=grade.getRule1();
                     //如果是空的，表示后面也没有打分数据了，可以直接继续循环了
@@ -363,8 +365,7 @@ public class AnalyseServiceImpl implements AnalyseService {
                     value=grade.getRule10();
                     if(value==null)continue;
                     if(!(Double.doubleToLongBits(value)==Double.doubleToLongBits(0)))row.createCell(11).setCellValue(value);
-                    //新行
-                    nowth++;
+
                 }
                 //0列写入选手名
             }

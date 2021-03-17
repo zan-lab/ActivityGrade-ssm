@@ -25,7 +25,7 @@
         <property name="username" value="zsdhdpf" />
         <property name="password" value="zsdhdpf" />
 <!--        <property name="driverClassName" value="com.mysql.jdbc.Driver" />-->
-<!--        <property name="url" value="jdbc:mysql://rm-bp18gphnjit2enzhxqo.mysql.rds.aliyuncs.com?useUnicode=yes&amp;characterEncoding=utf8&amp;useAffectedRows=true" />-->
+<!--        <property name="url" value="jdbc:mysql://rm-bp18gphnjit2enzhxqo.mysql.rds.aliyuncs.com/zsdhdpf?useUnicode=yes&amp;characterEncoding=utf8&amp;useAffectedRows=true" />-->
 <!--        <property name="username" value="zsdhdpf" />-->
 <!--        <property name="password" value="zsdhdpf" />-->
         <!--初始化值-->
@@ -56,7 +56,7 @@
 
     <!--配置SqlSessionFactory工厂-->
     <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-        <property name="dataSource" ref="dataSourceDebug" />
+        <property name="dataSource" ref="dataSource" />
     </bean>
 
     <!--配置Dao接口所在包-->

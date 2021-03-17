@@ -46,6 +46,8 @@ public class ActivityServiceImpl implements ActivityService {
         activity.setInvitationcode(code);
         //活动起始状态默认为未结束
         activity.setStatus(1);
+        //默认最大评委数,默认免费
+        activity.setMaxjudge(Integer.parseInt(redisService.get("free_judge")));
         //再根据code来获取这个activity
         if(activityDao.save(activity)==1){
             return activityDao.findByCode(code);
@@ -154,10 +156,12 @@ public class ActivityServiceImpl implements ActivityService {
         byte[] byteArray = null;
         ResponseEntity<byte[]> entity= restTemplate.postForEntity(url, result,byte[].class);
         byteArray=entity.getBody();
-        //AccessTokenRes entity= restTemplate.postForObject(url, result,AccessTokenRes.class);
-        //System.out.println(entity);
-        //System.out.println(entity.getBody());
-        //System.out.println(Arrays.toString(entity.getBody()));
+
+        //***********测试代码******
+//        AccessTokenRes entity1= restTemplate.postForObject(url, result,AccessTokenRes.class);
+//        System.out.println(entity1);
+//        if(true)return null;
+        //***********测试代码******
 
         //传入二进制流、文件名，返回地址
         String p= uploadWxQrCode(byteArray,"qrcode/"+ UUID.randomUUID()+".png");

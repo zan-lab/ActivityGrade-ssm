@@ -11,6 +11,7 @@ import com.zanlab.grade.service.PlayerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +61,9 @@ public class JudgeServiceImpl implements JudgeService {
             if(grade.getRule10()==null)grade.setRule10(0.00);
             marks+=grade.getRule1()+grade.getRule2()+grade.getRule3()+grade.getRule4()+grade.getRule5()+grade.getRule6()+grade.getRule7()+grade.getRule8()+grade.getRule9()+grade.getRule10();
             //写入该评委对该选手打分的总分
+            //写入前保留一位小数
+            DecimalFormat df = new DecimalFormat("######0.0");
+            marks = Double.parseDouble(df.format(marks));
             grade.setPlayerscore(marks);
             gradeDao.save(grade);
             //同时要修改选手的实时平均值字段

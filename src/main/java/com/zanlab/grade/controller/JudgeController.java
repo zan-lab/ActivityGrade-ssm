@@ -50,6 +50,12 @@ public class JudgeController {
             else{
                 if(userService.isRegister(judge.getUserid())){
                     if(activityService.hasActivity(judge.getActivityid())){
+                        //首先判断是否已经满足上限,满了就直接返回
+                        int nowjudgenum=judgeService.getJudgeListByActivityid(judge.getActivityid()).size();
+                        int maxjudgenum=activityService.getActivity(judge.getActivityid()).getMaxjudge();
+                        if(nowjudgenum>=maxjudgenum){
+                            return JsonResult(1,"活动评委已满，请联系活动负责人。");
+                        }
                         //关键句
                         if(judgeService.addJudge(judge))return JsonResult();
                         else return JsonResult(-5,"添加失败");
