@@ -136,7 +136,7 @@ public class Activity implements Serializable {
                 ", status=" + status +
                 ", invitationcode='" + invitationcode + '\'' +
                 ", userid=" + userid +
-                ", maxjudger=" + maxjudge +
+                ", maxjudge=" + maxjudge +
                 ", begintime=" + begintime +
                 ", endtime=" + endtime +
                 ", createtime=" + createtime +

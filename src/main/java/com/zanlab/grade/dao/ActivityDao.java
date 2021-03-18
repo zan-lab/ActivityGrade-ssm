@@ -19,8 +19,8 @@ public interface ActivityDao {
     Activity findById(Integer id);
 
     //创建活动时的sql
-    @Insert("insert into activity (name,sponsor,brief,status,invitationcode,userid,begintime) " +
-            "values(#{name},#{sponsor},#{brief},#{status},#{invitationcode},#{userid},#{begintime})")
+    @Insert("insert into activity (name,sponsor,brief,status,invitationcode,userid,begintime,maxjudge) " +
+            "values(#{name},#{sponsor},#{brief},#{status},#{invitationcode},#{userid},#{begintime},#{maxjudge})")
     int save(Activity activity);
 
     //更新活动的sql

@@ -51,7 +51,7 @@
         <property name="driverClass" value="com.mysql.jdbc.Driver"/>
         <property name="jdbcUrl" value="jdbc:mysql://localhost:3306/zsdhdpf?useUnicode=yes&amp;characterEncoding=utf8&amp;useAffectedRows=true"/>
         <property name="user" value="root"/>
-        <property name="password" value="fay123456"/>
+        <property name="password" value="root123"/>
     </bean>
 
     <!--配置SqlSessionFactory工厂-->
