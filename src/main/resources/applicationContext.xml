@@ -42,9 +42,7 @@
 
 <!--    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">-->
 <!--        <property name="driverClass" value="com.mysql.jdbc.Driver"/>-->
-<!--        <property name="jdbcUrl" value="jdbc:mysql://121.36.94.205:3306/zsdhdpf?useUnicode=yes&amp;characterEncoding=utf8&amp;useAffectedRows=true"/>-->
-<!--        <property name="user" value="zsdhdpf"/>-->
-<!--        <property name="password" value="zsdhdpf"/>-->
+<!--        <property name=
 <!--    </bean>-->
 <!--    本地环境使用这个-->
     <bean id="dataSourceDebug" class="com.mchange.v2.c3p0.ComboPooledDataSource">
