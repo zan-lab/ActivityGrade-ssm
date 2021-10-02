@@ -1,5 +1,6 @@
 # ActivityGrade-ssm活动评分小程序
 
+已经进行2.0版本重构，[项目地址:ActivityGrade2.0](https://github.com/GenjiLemon/ActivityGrade2.0)
 
 ## 项目简介
 
